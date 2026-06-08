@@ -18,3 +18,4 @@ offset_top = -21.0
 offset_right = 11.0
 offset_bottom = 22.0
 color = Color(0.14546412, 0.14288312, 0.1406711, 1)
+metadata/_edit_use_anchors_ = true

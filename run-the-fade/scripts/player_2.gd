@@ -9,14 +9,14 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 # giving the player gravity making them fall if they are in the air
-		if Input.is_action_just_pressed("p1_up"):
+		if Input.is_action_just_pressed("p2_up"):
 			velocity.y = jump
 	else:
-		if Input.is_action_just_pressed("p1_up"):
+		if Input.is_action_just_pressed("p2_up"):
 			velocity.y = jump
 # allows the player to jump while on the floor as well as in the air
 	
-	var direction = Input.get_axis("p1_left", "p1_right")
+	var direction = Input.get_axis("p2_left", "p2_right")
 # A varabile storing the direction of where the player travels
 	if direction: 
 		velocity.x = direction * speed
