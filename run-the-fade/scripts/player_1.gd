@@ -4,6 +4,25 @@ var speed = 300
 # create a varaible storing the players speed
 var jump = -400
 # create a varaible storing the players jump
+var p1_health: int = 500
+# create a varaible storing the players health as an interger
+var p1_posture: int = 50
+# create a varaible storing the players posture as an interger
+
+@export var p1_health_ui: ProgressBar
+# exporting the progress bar and making it an varaible for storing health
+@export var p1_posture_ui: ProgressBar
+# exporting the progress bar and making it an variable for storing posture
+
+func _ready() -> void:
+	p1_health_ui.max_value = p1_health
+# changes the max value of the Progress bar to the p1_health ammount
+	p1_health_ui.value = p1_health
+# cahnges the value of the Progress bar to the p1_health ammount
+	p1_posture_ui.max_value = p1_posture
+# changes the max value of the Progress bar to the p1_posture ammount
+	p1_posture_ui.value = p1_posture
+# changes the value of the Progress bar to the p1_posture ammount
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -27,14 +46,6 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 # makes the player move
-
-	
-
-
-	
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

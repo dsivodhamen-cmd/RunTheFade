@@ -14,11 +14,15 @@ size = Vector2(13, 580)
 
 [node name="Node2D" type="Node2D" unique_id=44579873]
 
-[node name="CharacterBody2D2" parent="." unique_id=1464841377 instance=ExtResource("2_yqjtg")]
+[node name="CharacterBody2D2" parent="." unique_id=1464841377 node_paths=PackedStringArray("p2_health_ui", "p2_posture_ui") instance=ExtResource("2_yqjtg")]
 position = Vector2(856, 525)
+p2_health_ui = NodePath("../CanvasLayer/Player2HP")
+p2_posture_ui = NodePath("../CanvasLayer/Player2Posture")
 
-[node name="CharacterBody2D" parent="." unique_id=758958205 instance=ExtResource("1_uwrxv")]
+[node name="CharacterBody2D" parent="." unique_id=758958205 node_paths=PackedStringArray("p1_health_ui", "p1_posture_ui") instance=ExtResource("1_uwrxv")]
 position = Vector2(317, 526)
+p1_health_ui = NodePath("../CanvasLayer2/Player1HP")
+p1_posture_ui = NodePath("../CanvasLayer2/Player1Posture")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=263365558]
 position = Vector2(0, 412)
@@ -54,3 +58,31 @@ position = Vector2(1160, 206)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1491447579]
 position = Vector2(-3.5, 89)
 shape = SubResource("RectangleShape2D_yqjtg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
+
+[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
+offset_left = 933.0
+offset_top = 21.0
+offset_right = 1131.0
+offset_bottom = 48.0
+
+[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
+offset_left = 989.0
+offset_top = 49.0
+offset_right = 1129.0
+offset_bottom = 76.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
+
+[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
+offset_left = 27.0
+offset_top = 21.0
+offset_right = 225.0
+offset_bottom = 48.0
+
+[node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
+offset_left = 27.0
+offset_top = 49.0
+offset_right = 178.0
+offset_bottom = 76.0
