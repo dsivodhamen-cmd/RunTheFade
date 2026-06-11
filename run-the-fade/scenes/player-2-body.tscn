@@ -5,8 +5,12 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv15m"]
 height = 52.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1464841377]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_av8ke"]
+size = Vector2(38, 54)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1464841377 node_paths=PackedStringArray("p2_hitbox")]
 script = ExtResource("1_av8ke")
+p2_hitbox = NodePath("Area2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1889624355]
 shape = SubResource("CapsuleShape2D_sv15m")
@@ -19,3 +23,8 @@ offset_right = 11.0
 offset_bottom = 22.0
 color = Color(0.94845456, 0.9467706, 0.94676846, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1413395422]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2058650547]
+shape = SubResource("RectangleShape2D_av8ke")

@@ -14,15 +14,15 @@ size = Vector2(13, 580)
 
 [node name="Node2D" type="Node2D" unique_id=44579873]
 
-[node name="CharacterBody2D2" parent="." unique_id=1464841377 node_paths=PackedStringArray("p2_health_ui", "p2_posture_ui") instance=ExtResource("2_yqjtg")]
-position = Vector2(856, 525)
-p2_health_ui = NodePath("../CanvasLayer/Player2HP")
-p2_posture_ui = NodePath("../CanvasLayer/Player2Posture")
-
 [node name="CharacterBody2D" parent="." unique_id=758958205 node_paths=PackedStringArray("p1_health_ui", "p1_posture_ui") instance=ExtResource("1_uwrxv")]
 position = Vector2(317, 526)
 p1_health_ui = NodePath("../CanvasLayer2/Player1HP")
 p1_posture_ui = NodePath("../CanvasLayer2/Player1Posture")
+
+[node name="CharacterBody2D2" parent="." unique_id=1464841377 node_paths=PackedStringArray("p2_health_ui", "p2_posture_ui") instance=ExtResource("2_yqjtg")]
+position = Vector2(856, 525)
+p2_health_ui = NodePath("../CanvasLayer/Player2HP")
+p2_posture_ui = NodePath("../CanvasLayer/Player2Posture")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=263365558]
 position = Vector2(0, 412)
