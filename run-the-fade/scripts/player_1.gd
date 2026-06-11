@@ -15,6 +15,8 @@ var p1_posture: int = 50
 
 @export var light_attack_damage: int = 10
 # exporting an variable storing the players light attack damage an an interger
+@export var heavy_attack_damage: int = 50
+# exporting an varabile storing the players heavy attack damage as an interger
 @export var p1_health_ui: ProgressBar
 # exporting the progress bar and making it an varaible for storing health
 @export var p1_posture_ui: ProgressBar
@@ -32,6 +34,8 @@ func _ready() -> void:
 # changes the max value of the Progress bar to the p1_posture ammount
 	p1_posture_ui.value = p1_posture
 # changes the value of the Progress bar to the p1_posture ammount
+	p1_hitbox.monitoring = true
+# makes p1_hitbox stay on all the time.
 
 func _physics_process(delta: float) -> void:
 	if is_on_floor():
@@ -67,29 +71,56 @@ func _physics_process(delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("p1_light_attack"):
-		_light_attack()
-# if the player presses the attack button then it will attack
+		light_attack()
+# if the player presses the light attack button then they will light attack
+	elif Input.is_action_just_pressed("p1_heavy_attack"):
+		heavy_attack()
+# if the player presses the heavy attack button then they will heavy attack
 
 
-func _light_attack():
-	p1_hitbox.monitoring = true
-# makes the hitbox turn on when light attacking
-	
+func light_attack():
+	if Input.is_action_pressed("p1_down"):
+# if the player is holding down when they attack then it will down light
+		print("Down L attack")
+		
+	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
+# if the play is holding right or left when they attack it will side light
+		print("Side L attack")
+		
+	else:
+		print("Up L attack")
+# if the player is not holding anything when they attack then it will Up attack
+		
 	for area in p1_hitbox.get_overlapping_areas():
+# a dictionary checking for all areas inside of p1_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(light_attack_damage)
-# if the area overlaping the hitbox area isnt it self then it will deal damage to it.
-	
-	await get_tree().create_timer(0.2).timeout
-# a timer putting the light attack on cooldown
-	
-	p1_hitbox.monitoring = false
-# turns the hitbox back off
+# if there is an area that isnt the p1_hitbox then it will take damage
+
+
+func heavy_attack():
+	if Input.is_action_pressed("p1_down"):
+# if the player is holding down when they attack then it will down heavy
+		print("Down H attack")
+		
+	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
+# if the play is holding right or left when they attack it will side heavy
+		print("Side H attack")
+		
+	else:
+		print("Up H attack")
+# if the player is not holding anything when they attack then it will Up heavy
+		
+	for area in p1_hitbox.get_overlapping_areas():
+# a dictionary checking for all areas inside of p1_hitbox
+		if area.get_parent() != self:
+			area.get_parent().take_damage(heavy_attack_damage)
+# if there is an area that isnt the p1_hitbox then it will take damage
 
 
 func take_damage(amount): 
 	if p1_health > 0:
 		p1_health -= amount
 		p1_health_ui.value = p1_health
-# if the player has health greater than 0 and takes damage it will take damage lowering the HP
+# if the player has health greater than 0 and takes damage it will take damage lowering the HPP
 	
