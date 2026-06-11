@@ -12,6 +12,15 @@ var p1_health: int = 500
 # create a varaible storing the players health as an interger
 var p1_posture: int = 50
 # create a varaible storing the players posture as an interger
+var p1_max_posture: int = 50
+# creates a varabiel storing the max ammount of parry
+var is_parrying = false
+# create a varaible storing the players parrying, make it where they arent parrying
+var is_blocking = false
+# create a varaible storing the players blocking, make it where they arent blocking
+var parry_window = 0.2
+# create a varabile storing the window where the player can parry attacks.
+
 
 @export var light_attack_damage: int = 10
 # exporting an variable storing the players light attack damage an an interger
@@ -70,12 +79,27 @@ func _physics_process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("p1_block"):
+		start_parry()
+# if the player presses the block button then it will start the parry window.
+	
+	if Input.is_action_pressed("p1_block") and !is_parrying:
+		is_blocking = true
+# if the player holds the block button and misses the parry window then they will block.
+	
+	else:
+		is_blocking = false
+# if the player lets go or doesnt press block then they will remain unblocking
+
+
 	if Input.is_action_just_pressed("p1_light_attack"):
 		light_attack()
 # if the player presses the light attack button then they will light attack
 	elif Input.is_action_just_pressed("p1_heavy_attack"):
 		heavy_attack()
 # if the player presses the heavy attack button then they will heavy attack
+ 
 
 
 func light_attack():
@@ -118,9 +142,60 @@ func heavy_attack():
 # if there is an area that isnt the p1_hitbox then it will take damage
 
 
+func start_parry():
+	is_parrying = true
+# when the player presses the block button then it will turn on parry
+	
+	await get_tree().create_timer(parry_window).timeout
+	is_parrying = false
+# once the parry window closes, the player will no longer be able to parry
+
 func take_damage(amount): 
+	if is_parrying:
+		
+		is_parrying = false
+# if player lands a parry then it will turn off
+		
+		p1_posture += 15 
+		p1_posture_ui.value = p1_posture
+# when the player lands a parry they will gain 15 posture.
+		
+		print("parry")
+		
+		return
+# returns the function allowing the player to parry again immediately
+	
+	
+	if is_blocking:
+		
+		p1_posture -= amount
+		p1_posture_ui.value = p1_posture
+# if the player is blocking, damage gets converted into posture damage and makes the player lose posture
+		
+		print("blocked")
+
+		if p1_posture <= 0: 
+			posture_break()
+		
+		return
+# allows the player to block damage again imediatly
+	
+	
 	if p1_health > 0:
 		p1_health -= amount
 		p1_health_ui.value = p1_health
 # if the player has health greater than 0 and takes damage it will take damage lowering the HPP
+
+func posture_break():
 	
+	print("posture broken")
+	
+	is_blocking = false
+# if the players posture breaks they will stop blocking
+	
+	await get_tree().create_timer(2.0).timeout
+# makes the player unable to block for 2 seconds when they get block broken
+	
+	p1_posture = p1_max_posture
+	p1_posture_ui.value = p1_posture
+# once the players block gets broken, their posture bar will rest back to the max
