@@ -21,7 +21,8 @@ var is_blocking = false
 var parry_window = 0.2
 # create a varabile storing the window where the player can parry attacks.
 
-
+@export var animation: AnimationPlayer
+# exporting an varaible storing all the animations for player 1
 @export var light_attack_damage: int = 10
 # exporting an variable storing the players light attack damage an an interger
 @export var heavy_attack_damage: int = 50
@@ -68,7 +69,10 @@ func _physics_process(delta: float) -> void:
 # A varabile storing the direction of where the player travels
 	if direction: 
 		velocity.x = direction * speed
+		
 # allows the player to move in the direction they are holding
+		animation.play("walking")
+# Plays the walking animation
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 # if the player lets go they will stop moving
@@ -116,7 +120,7 @@ func light_attack():
 # if the player is not holding anything when they attack then it will Up attack
 		
 	for area in p1_hitbox.get_overlapping_areas():
-# a dictionary checking for all areas inside of p1_hitbox
+# a for loop going through for all areas inside of p1_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(light_attack_damage)
 # if there is an area that isnt the p1_hitbox then it will take damage
@@ -136,7 +140,7 @@ func heavy_attack():
 # if the player is not holding anything when they attack then it will Up heavy
 		
 	for area in p1_hitbox.get_overlapping_areas():
-# a dictionary checking for all areas inside of p1_hitbox
+# a for loop going through all areas inside of p1_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(heavy_attack_damage)
 # if there is an area that isnt the p1_hitbox then it will take damage

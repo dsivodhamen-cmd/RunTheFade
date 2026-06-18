@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://djrpyt3fki5qb"]
 
 [ext_resource type="Script" uid="uid://drff0r2dd6got" path="res://scripts/player_2.gd" id="1_av8ke"]
+[ext_resource type="Texture2D" uid="uid://cls63m3ypqf23" path="res://assets/Player 2 Sprite sheet.png" id="2_r8fjk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv15m"]
 height = 52.0
@@ -12,17 +13,16 @@ size = Vector2(38, 54)
 script = ExtResource("1_av8ke")
 p2_hitbox = NodePath("Area2D")
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=92967845]
+position = Vector2(9, -24.798618)
+scale = Vector2(0.9811521, 0.73752165)
+texture = ExtResource("2_r8fjk")
+hframes = 7
+vframes = 7
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1889624355]
 shape = SubResource("CapsuleShape2D_sv15m")
 one_way_collision = true
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1373578493]
-offset_left = -11.0
-offset_top = -21.0
-offset_right = 11.0
-offset_bottom = 22.0
-color = Color(0.94845456, 0.9467706, 0.94676846, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1413395422]
 

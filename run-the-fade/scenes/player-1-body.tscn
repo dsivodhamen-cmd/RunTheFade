@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://shi7dasil7k1"]
 
 [ext_resource type="Script" uid="uid://5mrh84d35n77" path="res://scripts/player_1.gd" id="1_xoiyv"]
+[ext_resource type="Texture2D" uid="uid://bvblgs0dab7o2" path="res://assets/Player 1 Sprite sheet.png" id="2_ggp8a"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t17lp"]
 height = 52.0
@@ -8,25 +9,248 @@ height = 52.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xoiyv"]
 size = Vector2(38, 54)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=758958205 node_paths=PackedStringArray("p1_hitbox")]
+[sub_resource type="Animation" id="Animation_ggp8a"]
+resource_name = "Block"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_w2gr0"]
+resource_name = "Heavy down attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_ys4xf"]
+resource_name = "Heavy side attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_jqkn8"]
+resource_name = "Heavy up attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_t4kbg"]
+resource_name = "Light down attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_5gmkx"]
+resource_name = "Light side attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_mfau4"]
+resource_name = "Light up attack"
+length = 0.36666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_m0wre"]
+resource_name = "Parry"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
+[sub_resource type="Animation" id="Animation_r82jy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ihtny"]
+resource_name = "falling"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_035mj"]
+resource_name = "idle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ogoi6"]
+resource_name = "jumping"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_6artw"]
+resource_name = "walking"
+length = 0.666
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8q7sp"]
+_data = {
+&"Block": SubResource("Animation_ggp8a"),
+&"Heavy down attack": SubResource("Animation_w2gr0"),
+&"Heavy side attack": SubResource("Animation_ys4xf"),
+&"Heavy up attack": SubResource("Animation_jqkn8"),
+&"Light down attack": SubResource("Animation_t4kbg"),
+&"Light side attack": SubResource("Animation_5gmkx"),
+&"Light up attack": SubResource("Animation_mfau4"),
+&"Parry": SubResource("Animation_m0wre"),
+&"RESET": SubResource("Animation_r82jy"),
+&"falling": SubResource("Animation_ihtny"),
+&"idle": SubResource("Animation_035mj"),
+&"jumping": SubResource("Animation_ogoi6"),
+&"walking": SubResource("Animation_6artw")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=758958205 node_paths=PackedStringArray("animation", "p1_hitbox")]
 script = ExtResource("1_xoiyv")
+animation = NodePath("AnimationPlayer")
 p1_hitbox = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1602648504]
+position = Vector2(9, -24.798618)
+scale = Vector2(0.9811521, 0.73752165)
+texture = ExtResource("2_ggp8a")
+hframes = 7
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=959099542]
 shape = SubResource("CapsuleShape2D_t17lp")
 one_way_collision = true
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=679520054]
-offset_left = -11.0
-offset_top = -21.0
-offset_right = 11.0
-offset_bottom = 22.0
-color = Color(0.14546412, 0.14288312, 0.1406711, 1)
-metadata/_edit_use_anchors_ = true
-
 [node name="Area2D" type="Area2D" parent="." unique_id=1873214058]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=881710082]
 shape = SubResource("RectangleShape2D_xoiyv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1298507812]
+libraries/ = SubResource("AnimationLibrary_8q7sp")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -113,7 +113,7 @@ func light_attack():
 # if the player is not holding anything when they attack then it will Up attack
 		
 	for area in p2_hitbox.get_overlapping_areas():
-# a dictionary checking for all areas inside of p2_hitbox
+# a for loop going through all areas inside of p2_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(light_attack_damage)
 # if there is an area that isnt the p2_hitbox then it will take damage
@@ -132,7 +132,7 @@ func heavy_attack():
 # if the player is not holding anything when they attack then it will Up heavy
 		
 	for area in p2_hitbox.get_overlapping_areas():
-# a dictionary checking for all areas inside of p2_hitbox
+# a for loop going through all areas inside of p2_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(heavy_attack_damage)
 # if there is an area that isnt the p2_hitbox then it will take damage
