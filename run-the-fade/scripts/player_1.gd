@@ -139,7 +139,6 @@ func _process(delta: float) -> void:
 # if the player presses the heavy attack button then they will heavy attack
  
 
-
 func light_attack():
 	if is_attacking:
 		return
