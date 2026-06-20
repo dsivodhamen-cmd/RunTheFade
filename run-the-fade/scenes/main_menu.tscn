@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://c3w2mmbcg1aon"]
+
+[ext_resource type="Script" uid="uid://7xq5m16yn8dn" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://cls63m3ypqf23" path="res://assets/Player 2 Sprite sheet.png" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://bvblgs0dab7o2" path="res://assets/Player 1 Sprite sheet.png" id="3_8ln24"]
+
+[node name="Control" type="Control" unique_id=539311951]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+
+[node name="Label" type="Label" parent="." unique_id=541468203]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 15.0
+offset_right = 772.0
+offset_bottom = 156.0
+theme_override_font_sizes/font_size = 50
+text = "Run The Fade
+Prototype"
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=325420556]
+position = Vector2(699, 245)
+scale = Vector2(2.7145936, 1.661486)
+texture = ExtResource("2_wu84c")
+hframes = 7
+vframes = 7
+frame = 7
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1014998396]
+position = Vector2(497.99997, 222)
+scale = Vector2(2.428076, 1.6031356)
+texture = ExtResource("3_8ln24")
+hframes = 7
+vframes = 7
+frame = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=678507658]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 448.0
+offset_right = 791.0
+offset_bottom = 592.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=2139131255]
+layout_mode = 2
+
+[node name="Play button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1644635754]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="Options button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1939122880]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Options"
+
+[node name="Quit button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=752668085]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Quit
+"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Play button" to="." method="_play"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Options button" to="." method="_options"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit button" to="." method="_quit"]
