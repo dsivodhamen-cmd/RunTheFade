@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 
 
 	if direction: 
-		velocity.x = direction * speed
+		velocity.x = lerp(velocity.x, direction * speed, 0.2)
 		
 # allows the player to move in the direction they are holding
 		if is_on_floor():
