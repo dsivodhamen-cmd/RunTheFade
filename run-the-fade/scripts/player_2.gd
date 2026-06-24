@@ -30,17 +30,17 @@ var is_attacking = false
 # exporting an variable storing the players light attack damage an an interger
 @export var heavy_attack_damage: int = 50
 # exporting an varabile storing the players heavy attack damage as an interger
-@export var light_down_knockback = 250
+@export var light_down_knockback = 400
 # exporting an varaible storing the players light down knockback
-@export var light_side_knockback = 200
+@export var light_side_knockback = 1800
 # exporting an varaible storing the players light side knockback
-@export var light_up_knockback = 250
+@export var light_up_knockback = 400
 # exporting an varaible storing the players light up knockback
-@export var heavy_down_knockback = 600
+@export var heavy_down_knockback = 800
 # exporting an varaible storing the players heavy down knockback
-@export var heavy_side_knockback = 600
+@export var heavy_side_knockback = 4000
 # exporting an variable storing the players heavy side knockback
-@export var heavy_up_knockback = 600
+@export var heavy_up_knockback = 800
 #exporting an varaible storing the players heavy up knockback
 @export var p2_health_ui: ProgressBar
 # exporting the progress bar and making it an varaible for storing health
@@ -160,7 +160,7 @@ func light_attack():
 # sets attacking to true
 
 	var knockback = Vector2.ZERO
-# creates a varible in the attack function storing knockback
+# creates a varible in the light attack function storing knockback
 
 	if Input.is_action_pressed("p2_down"):
 # if the player is holding down when they attack then it will down light
@@ -174,9 +174,9 @@ func light_attack():
 		animation.play("Light side attack")
 # plays the side light attack animation
 		if sprite_2d.flip_h:
-			knockback = Vector2(0, -light_side_knockback)
+			knockback = Vector2(-light_side_knockback, 0)
 		else:
-			knockback = Vector2(0, light_side_knockback)
+			knockback = Vector2(light_side_knockback, 0)
 # depending on the direction the player is facing will apply knockback in that direction.
 
 	else:
@@ -184,16 +184,15 @@ func light_attack():
 # if the player is not holding anything when they attack then it will Up attack	
 		knockback = Vector2(0, -light_up_knockback)
 # changes the knockback varaible value to the light_up_knockback ammount
-
-	await animation.animation_finished 
-	is_attacking = false 
-# waits for the animation to end and then makes the player stop attacking
 	
 	for area in p2_hitbox.get_overlapping_areas():
 # a for loop going through for all areas inside of p2_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(light_attack_damage, knockback)
 # if there is an area that isnt the p2_hitbox then it will take damage
+	await animation.animation_finished
+	is_attacking = false 
+# waits for the animation to finsih then sets the player back to not attacking
 
 
 func heavy_attack():
@@ -203,30 +202,44 @@ func heavy_attack():
 	
 	is_attacking = true
 # sets attacking to true
-	
+
+	var knockback = Vector2.ZERO
+# creates an variable in the heavy attack function storing knockback
+
 	if Input.is_action_pressed("p2_down"):
 # if the player is holding down when they attack then it will down heavy
 		animation.play("Heavy down attack")
 # plays the heavy down attack animation
-		
+		knockback = Vector2(0, heavy_down_knockback)
+# changes the knockback varaible value to the heavy_down_knockback amount
+
 	elif Input.is_action_pressed("p2_left") or Input.is_action_pressed("p2_right"):
 # if the play is holding right or left when they attack it will side heavy
 		animation.play("Heavy side attack")
 # plays the heavy side attack animation
-		
+		if sprite_2d.flip_h:
+			knockback = Vector2(-heavy_side_knockback, 0)
+		else:
+			knockback = Vector2(heavy_side_knockback, 0)
+# deals knockback depending on the direction the player is facing
+
 	else:
 		animation.play("Heavy up attack")
 # if the player is not holding anything when they attack then it will Up heavy and play animation
-		
-	await animation.animation_finished 
-	is_attacking = false 
-# waits for the animation to end and then makes the player stop attacking
-		
+		knockback = Vector2(0, -heavy_up_knockback)
+# changes the knockback variable value to the heavy_up_knockback ammount
+
+	await get_tree().create_timer(0.5).timeout
+#creates a timer of 0.5s before dealing damage and knockback to players
+
 	for area in p2_hitbox.get_overlapping_areas():
 # a for loop going through all areas inside of p2_hitbox
 		if area.get_parent() != self:
-			area.get_parent().take_damage(heavy_attack_damage)
+			area.get_parent().take_damage(heavy_attack_damage, knockback)
 # if there is an area that isnt the p2_hitbox then it will take damage
+	await animation.animation_finished 
+	is_attacking = false 
+# waits for the animation to end and then makes the player stop attacking
 
 
 func start_parry():
