@@ -22,6 +22,9 @@ var parry_window = 0.2
 # create a varabile storing the window where the player can parry attacks.
 var is_attacking = false
 # creates a variable storing the players atacking, make it where they arent attacking
+var is_stunned = false
+
+# creates a variable storing the players stun, makes it where player isnt stunned.
 
 
 @export var animation: AnimationPlayer
@@ -32,16 +35,22 @@ var is_attacking = false
 # exporting an varabile storing the players heavy attack damage as an interger
 @export var light_down_knockback = 400
 # exporting an varaible storing the players light down knockback
-@export var light_side_knockback = 1800
+@export var light_side_knockback = 400
 # exporting an varaible storing the players light side knockback
 @export var light_up_knockback = 400
 # exporting an varaible storing the players light up knockback
 @export var heavy_down_knockback = 800
 # exporting an varaible storing the players heavy down knockback
-@export var heavy_side_knockback = 4000
+@export var heavy_side_knockback = 800
 # exporting an variable storing the players heavy side knockback
 @export var heavy_up_knockback = 800
 #exporting an varaible storing the players heavy up knockback
+@export var light_attack_stun = 0.2
+#exporting an varaible storing the light attack stun
+@export var heavy_attack_stun = 0.5
+#exporting an variable storing the heavy attack stun
+@export var posture_break_stun = 1
+#exporting an varaible storing the posture break stun
 @export var p1_health_ui: ProgressBar
 # exporting the progress bar and making it an varaible for storing health
 @export var p1_posture_ui: ProgressBar
@@ -76,6 +85,11 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 # If the player is parrying then this will prevent the player from moving
+	if is_stunned:
+		velocity += get_gravity() * delta
+		move_and_slide()
+		return
+# If the player is stunned then this will prevent the player from moving and lets them fall if in air
 
 	if direction > 0:
 		sprite_2d.flip_h = false
@@ -128,7 +142,10 @@ func _physics_process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
+
+	if is_stunned:
+		return 
+
 	if Input.is_action_just_pressed("p1_block"):
 		start_parry()
 # if the player presses the block button then it will start the parry window.
@@ -188,7 +205,7 @@ func light_attack():
 	for area in p1_hitbox.get_overlapping_areas():
 # a for loop going through for all areas inside of p1_hitbox
 		if area.get_parent() != self:
-			area.get_parent().take_damage(light_attack_damage, knockback)
+			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun)
 # if there is an area that isnt the p1_hitbox then it will take damage
 	await animation.animation_finished 
 	is_attacking = false 
@@ -235,8 +252,8 @@ func heavy_attack():
 	for area in p1_hitbox.get_overlapping_areas():
 # a for loop going through all areas inside of p1_hitbox
 		if area.get_parent() != self:
-			area.get_parent().take_damage(heavy_attack_damage, knockback)
-# if there is an area that isnt the p1_hitbox then it will take damage
+			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun)
+# if there is an area that isnt the p1_hitbox then it will take damage, apply knockback, and deal stun
 	await animation.animation_finished
 	is_attacking = false 
 # waits for the animation to end and then makes the player stop attacking
@@ -254,10 +271,19 @@ func start_parry():
 
 func take_knockback(force: Vector2):
 	velocity = force
+# a function creating knockback and making it an Vector2
+
+func take_stun(duration):
+	is_stunned = true
+# sets stun to true
+	animation.play("stun")
+# plays the stun animation
+	await get_tree().create_timer(duration).timeout
+	is_stunned = false
+# after the duration of stun is finished the player will become unstunned
 
 
-
-func take_damage(amount, knockback): 
+func take_damage(amount, knockback, stun): 
 	if is_parrying:
 		
 		is_parrying = false
@@ -292,17 +318,17 @@ func take_damage(amount, knockback):
 # if the player has health greater than 0 and takes damage it will take damage lowering the HP
 		take_knockback(knockback)
 # the player takes knockback acording to the attack that they were hit with.
+		take_stun(stun)
+# makes the player take stun according to the attack that they were hit with
 
 func posture_break():
-	
-	print("posture broken")
-	
+
 	is_blocking = false
 # if the players posture breaks they will stop blocking
-	
-	await get_tree().create_timer(2.0).timeout
-# makes the player unable to block for 2 seconds when they get block broken
-	
+
+	await take_stun(posture_break_stun)
+# if stuns the player for the stun duration.
+
 	p1_posture = p1_max_posture
 	p1_posture_ui.value = p1_posture
 # once the players block gets broken, their posture bar will rest back to the max
