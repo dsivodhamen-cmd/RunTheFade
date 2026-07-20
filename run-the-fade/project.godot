@@ -15,6 +15,10 @@ run/main_scene="uid://bisjhy2dcp7a3"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Duxso/OneDrive/Documents/video recording/prototype2.avi"
+
 [input]
 
 p1_up={

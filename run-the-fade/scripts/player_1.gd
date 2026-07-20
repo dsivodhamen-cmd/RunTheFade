@@ -10,6 +10,8 @@ var jumps_left = 5
 # create a varaible storing the ammount of jumps the player has
 var p1_health: int = 500
 # create a varaible storing the players health as an interger
+var p1_max_health: int = 500
+# creates a varaible storing the players maxium health as an interger
 var p1_posture: int = 50
 # create a varaible storing the players posture as an interger
 var p1_max_posture: int = 50
@@ -23,8 +25,9 @@ var parry_window = 0.2
 var is_attacking = false
 # creates a variable storing the players atacking, make it where they arent attacking
 var is_stunned = false
-
 # creates a variable storing the players stun, makes it where player isnt stunned.
+var lifes: int = 3
+# creates a vrabile storing the players lives as in interger.
 
 
 @export var animation: AnimationPlayer
@@ -46,9 +49,11 @@ var is_stunned = false
 @export var heavy_up_knockback = 800
 #exporting an varaible storing the players heavy up knockback
 @export var light_attack_stun = 0.2
-#exporting an varaible storing the light attack stun
+#exporting an varaible storing the light attack stuni
 @export var heavy_attack_stun = 0.5
 #exporting an variable storing the heavy attack stun
+@export var parry_stun = 0.5
+#exporting an varaible storing the parry stun
 @export var posture_break_stun = 1
 #exporting an varaible storing the posture break stun
 @export var p1_health_ui: ProgressBar
@@ -173,6 +178,10 @@ func light_attack():
 		return
 # returns the function if the player is attacking
 	
+	if is_blocking:
+		return
+# returns the function if the player is blocking
+	
 	is_attacking = true 
 # sets attacking to true
 
@@ -216,6 +225,10 @@ func heavy_attack():
 	if is_attacking:
 		return
 # returns the function if the player is already attacking
+	
+	if is_blocking:
+		return
+# returns the function if the player is blocking
 	
 	is_attacking = true
 # sets attacking to true
@@ -288,10 +301,10 @@ func take_damage(amount, knockback, stun):
 		
 		is_parrying = false
 # if player lands a parry then it will turn off
-		
-		p1_posture += 15 
-		p1_posture_ui.value = p1_posture
-# when the player lands a parry they will gain 15 posture.
+		if p1_posture < 50:
+			p1_posture += 10 
+			p1_posture_ui.value = p1_posture
+# if the player has less than 50 posture then when the player lands a parry they will gain 15 posture.
 		
 		return
 # returns the function
@@ -320,6 +333,10 @@ func take_damage(amount, knockback, stun):
 # the player takes knockback acording to the attack that they were hit with.
 		take_stun(stun)
 # makes the player take stun according to the attack that they were hit with
+	else:
+		lifes -= 1
+		p1_health_ui.value = p1_max_health
+		p1_health_ui.value = p1_health
 
 func posture_break():
 
