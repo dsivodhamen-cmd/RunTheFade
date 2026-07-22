@@ -28,6 +28,8 @@ var is_stunned = false
 # creates a variable storing the players stun, makes it where player isnt stunned.
 var lifes: int = 3
 # creates a vrabile storing the players lives as in interger.
+var is_dead = false
+# creates a varaible storing whether the player is dead, makes it where the player isnt dead
 
 
 @export var animation: AnimationPlayer
@@ -86,15 +88,23 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 # If the player is attacking then this will prevent the player from moving
+	
 	if is_parrying:
 		move_and_slide()
 		return
 # If the player is parrying then this will prevent the player from moving
+	
 	if is_stunned:
 		velocity += get_gravity() * delta
 		move_and_slide()
 		return
 # If the player is stunned then this will prevent the player from moving and lets them fall if in air
+
+	if is_dead:
+		velocity += get_gravity() * delta
+		move_and_slide()
+		return
+# If the player is dead then this will prevent the player from moving and lets thm fall if in air
 
 	if direction > 0:
 		sprite_2d.flip_h = false
@@ -150,6 +160,11 @@ func _process(delta: float) -> void:
 
 	if is_stunned:
 		return 
+# returns the function if the players is stunned
+
+	if is_dead:
+		return
+# returns the function if the player is dead
 
 	if Input.is_action_just_pressed("p1_block"):
 		start_parry()
@@ -181,7 +196,7 @@ func light_attack():
 	if is_blocking:
 		return
 # returns the function if the player is blocking
-	
+
 	is_attacking = true 
 # sets attacking to true
 
@@ -229,7 +244,7 @@ func heavy_attack():
 	if is_blocking:
 		return
 # returns the function if the player is blocking
-	
+
 	is_attacking = true
 # sets attacking to true
 
@@ -334,6 +349,10 @@ func take_damage(amount, knockback, stun):
 		take_stun(stun)
 # makes the player take stun according to the attack that they were hit with
 
+	if p1_health <= 0: 
+		death()
+# if the players health goes bellow or is 0 they will die
+
 func posture_break():
 
 	is_blocking = false
@@ -347,11 +366,30 @@ func posture_break():
 # once the players block gets broken, their posture bar will rest back to the max
 
 func death():
+
+	if is_dead:
+		return
+# returns the function if the player is already dead
+
+	is_dead = true
+# makes the player dead
+	animation.play("Death")
+	await get_tree().create_timer(3).timeout
+# plays the death animation and waits 3 seconds after the player dies
+	lifes -= 1
+# decreases lives by 1 once the player dies
 	
-	if p1_health < 1:
-		await get_tree().create_timer(3).timeout
-# if the player dies it waits for the animation timer to finsih before continuing
-		lifes -= 1
-		p1_health = p1_max_health
-		p1_health_ui.value = p1_health
-# decreases the lifes by 1, and then resets the health back to its maximum value once player dies.
+	p1_health = p1_max_health
+	p1_health_ui.value = p1_health
+# resets the players health back to its max value and shows the value on UI
+	
+	p1_posture = p1_max_posture
+	p1_posture_ui.value = p1_posture
+# resets the players posture back to its max avlue and shows the value on UI
+	
+	is_attacking = false
+	is_blocking = false
+	is_parrying = false
+	is_stunned = false 
+	is_dead = false
+# sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
