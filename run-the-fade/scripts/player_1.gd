@@ -333,10 +333,6 @@ func take_damage(amount, knockback, stun):
 # the player takes knockback acording to the attack that they were hit with.
 		take_stun(stun)
 # makes the player take stun according to the attack that they were hit with
-	else:
-		lifes -= 1
-		p1_health_ui.value = p1_max_health
-		p1_health_ui.value = p1_health
 
 func posture_break():
 
@@ -349,3 +345,13 @@ func posture_break():
 	p1_posture = p1_max_posture
 	p1_posture_ui.value = p1_posture
 # once the players block gets broken, their posture bar will rest back to the max
+
+func death():
+	
+	if p1_health < 1:
+		await get_tree().create_timer(3).timeout
+# if the player dies it waits for the animation timer to finsih before continuing
+		lifes -= 1
+		p1_health = p1_max_health
+		p1_health_ui.value = p1_health
+# decreases the lifes by 1, and then resets the health back to its maximum value once player dies.
