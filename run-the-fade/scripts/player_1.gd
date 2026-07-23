@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 var speed = 300
 # create a varaible storing the players speed
 var jump = -400
@@ -66,6 +67,8 @@ var is_dead = false
 # exporting an area 2d and making the the varaible for the players hitbox
 @onready var sprite_2d: Sprite2D = $Sprite2D
 # bringst the sprite 2d into the code allowing for it to be referenced (will be used to flip sprite)
+@export var p1_lifes_ui: Label
+# exporting the label and making it an varaible for storing lifes
 
 
 func _ready() -> void:
@@ -77,10 +80,14 @@ func _ready() -> void:
 # changes the max value of the Progress bar to the p1_posture ammount
 	p1_posture_ui.value = p1_posture
 # changes the value of the Progress bar to the p1_posture ammount
+	p1_lifes_ui.text = str(lifes)
+# changes the value of the label to the lifes ammount as a string
 	p1_hitbox.monitoring = true
 # makes p1_hitbox stay on all the time.
 
+
 func _physics_process(delta: float) -> void:
+	
 	var direction = Input.get_axis("p1_left", "p1_right")
 # A varabile storing the direction of where the player travels
 
@@ -113,7 +120,6 @@ func _physics_process(delta: float) -> void:
 		sprite_2d.flip_h = true
 # If the player is moving to the left then the sprite will flip facing the right direction.
 
-
 	if direction: 
 		velocity.x = lerp(velocity.x, direction * speed, 0.2)
 		
@@ -144,7 +150,7 @@ func _physics_process(delta: float) -> void:
 		if velocity.y > 0:
 			animation.play("falling")
 # if the player is falling (negative y) then the falling animation will play
-		
+
 		if Input.is_action_just_pressed("p1_up") and jumps_left > 0:
 			velocity.y = jump
 			animation.play("jumping")
@@ -189,6 +195,7 @@ func _process(delta: float) -> void:
  
 
 func light_attack():
+
 	if is_attacking:
 		return
 # returns the function if the player is attacking
@@ -229,8 +236,9 @@ func light_attack():
 	for area in p1_hitbox.get_overlapping_areas():
 # a for loop going through for all areas inside of p1_hitbox
 		if area.get_parent() != self:
-			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun)
-# if there is an area that isnt the p1_hitbox then it will take damage
+			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun, self)
+# if there is an area that isnt the p1_hitbox then it will take damage, stun and knockback
+# self is used to reference the player
 	await animation.animation_finished 
 	is_attacking = false 
 # waits for the animation to end and then makes the player stop attacking
@@ -280,8 +288,9 @@ func heavy_attack():
 	for area in p1_hitbox.get_overlapping_areas():
 # a for loop going through all areas inside of p1_hitbox
 		if area.get_parent() != self:
-			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun)
-# if there is an area that isnt the p1_hitbox then it will take damage, apply knockback, and deal stun
+			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun, self)
+# if there is an area that isnt the p1_hitbox then it will take damage, knockback, and stun
+# self is used to reference the player
 	await animation.animation_finished
 	is_attacking = false 
 # waits for the animation to end and then makes the player stop attacking
@@ -297,9 +306,11 @@ func start_parry():
 	is_parrying = false
 # once the parry window closes, the player will no longer be able to parry
 
+
 func take_knockback(force: Vector2):
 	velocity = force
 # a function creating knockback and making it an Vector2
+
 
 func take_stun(duration):
 	is_stunned = true
@@ -311,19 +322,22 @@ func take_stun(duration):
 # after the duration of stun is finished the player will become unstunned
 
 
-func take_damage(amount, knockback, stun): 
+func take_damage(amount, knockback, stun, attacker): 
+# attacker is used to reference the player to the attacker
+
 	if is_parrying:
 		
 		is_parrying = false
 # if player lands a parry then it will turn off
-		if p1_posture < 50:
+		if p1_posture < p1_max_posture:
 			p1_posture += 10 
 			p1_posture_ui.value = p1_posture
-# if the player has less than 50 posture then when the player lands a parry they will gain 15 posture.
+# if the player has less than the max posture then when the player lands a parry they will gain 15 posture.
 		
+		attacker.take_stun(parry_stun)
+# if the attacker attacks the player while they are parrying then they will take stun
 		return
 # returns the function
-	
 	
 	if is_blocking:
 		
@@ -353,6 +367,7 @@ func take_damage(amount, knockback, stun):
 		death()
 # if the players health goes bellow or is 0 they will die
 
+
 func posture_break():
 
 	is_blocking = false
@@ -365,6 +380,7 @@ func posture_break():
 	p1_posture_ui.value = p1_posture
 # once the players block gets broken, their posture bar will rest back to the max
 
+
 func death():
 
 	if is_dead:
@@ -375,21 +391,29 @@ func death():
 # makes the player dead
 	animation.play("Death")
 	await get_tree().create_timer(3).timeout
-# plays the death animation and waits 3 seconds after the player dies
+# plays the death animation and waits 3 seconds after the player dies 
+
 	lifes -= 1
-# decreases lives by 1 once the player dies
-	
-	p1_health = p1_max_health
-	p1_health_ui.value = p1_health
-# resets the players health back to its max value and shows the value on UI
-	
-	p1_posture = p1_max_posture
-	p1_posture_ui.value = p1_posture
-# resets the players posture back to its max avlue and shows the value on UI
-	
-	is_attacking = false
-	is_blocking = false
-	is_parrying = false
-	is_stunned = false 
-	is_dead = false
+	p1_lifes_ui.text = str(lifes)
+# decreases lives by 1 once the player dies and updates the UI value
+
+	if lifes > 0:
+
+		p1_health = p1_max_health
+		p1_health_ui.value = p1_health
+# resets the players health back to its max value and shows the value on UI if player has enough lifes
+		
+		p1_posture = p1_max_posture
+		p1_posture_ui.value = p1_posture
+# resets the players posture back to its max avlue and shows the value on UI if player has enough lifes
+		
+		is_attacking = false
+		is_blocking = false
+		is_parrying = false
+		is_stunned = false 
+		is_dead = false
 # sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
+
+	else:
+		get_tree().quit()
+# if the player doesnt enough lifes then the game will end (FOR NOW)

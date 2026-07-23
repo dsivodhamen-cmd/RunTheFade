@@ -24,6 +24,21 @@ tracks/0/keys = {
 "values": [15]
 }
 
+[sub_resource type="Animation" id="Animation_qo5eu"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
 [sub_resource type="Animation" id="Animation_w2gr0"]
 resource_name = "Heavy down attack"
 tracks/0/type = "value"
@@ -231,6 +246,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r8fjk"]
 _data = {
 &"Block": SubResource("Animation_ggp8a"),
+&"Death": SubResource("Animation_qo5eu"),
 &"Heavy down attack": SubResource("Animation_w2gr0"),
 &"Heavy side attack": SubResource("Animation_ys4xf"),
 &"Heavy up attack": SubResource("Animation_jqkn8"),
