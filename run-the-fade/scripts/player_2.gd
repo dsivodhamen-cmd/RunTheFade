@@ -24,13 +24,17 @@ var is_blocking = false
 var parry_window = 0.2
 # create a varabile storing the window where the player can parry attacks.
 var is_attacking = false
-# creates a variable storing the players atacking, make it where they arent attacking
+# creates a variable storing the players atack, make it where they arent attacking
 var is_stunned = false
 # creates a variable storing the players stun, makes it where player isnt stunned.
 var lifes: int = 3
 # creates a vrabile storing the players lives as in interger.
 var is_dead = false
 # creates a varaible storing whether the player is dead, makes it where the player isnt dead
+var dash = 500
+# create a varaible storing the players dash
+var is_dashing = false
+# creates a varaible storing the players dash, makes it where the player isnt dashing
 
 
 @export var animation: AnimationPlayer
@@ -68,7 +72,7 @@ var is_dead = false
 @onready var sprite_2d: Sprite2D = $Sprite2D
 # bringst the sprite 2d into the code allowing for it to be referenced (will be used to flip sprite)
 @export var p2_lifes_ui: Label
-# exporting an label and making in an varaible for storing lifes
+# exporting the label and making it an varaible for storing lifes
 
 
 func _ready() -> void:
@@ -81,7 +85,7 @@ func _ready() -> void:
 	p2_posture_ui.value = p2_posture
 # changes the value of the Progress bar to the p2_posture ammount
 	p2_lifes_ui.text = str(lifes)
-# changes the value of the label to the lifes value as an string
+# changes the value of the label to the lifes ammount as a string
 	p2_hitbox.monitoring = true
 # makes p2_hitbox stay on all the time.
 
@@ -113,12 +117,23 @@ func _physics_process(delta: float) -> void:
 		return
 # If the player is dead then this will prevent the player from moving and lets thm fall if in air
 
+	if is_dashing:
+		move_and_slide()
+		animation.play("Dash")
+		return
+# If the player is dashing then this will prevent the player from moving and plays the dashing animation
+
+
 	if direction > 0:
 		sprite_2d.flip_h = false
 # If the player is moving to the right then the sprite will not flip
 	elif direction < 0:
 		sprite_2d.flip_h = true
 # If the player is moving to the left then the sprite will flip facing the right direction.
+
+	if Input.is_action_just_pressed("p2_dash"):
+		start_dash(direction)
+# if the player presses the dash button then they will dash
 
 	if direction: 
 		velocity.x = lerp(velocity.x, direction * speed, 0.2)
@@ -172,6 +187,7 @@ func _process(delta: float) -> void:
 		return
 # returns the function if the player is dead
 
+
 	if Input.is_action_just_pressed("p2_block"):
 		start_parry()
 # if the player presses the block button then it will start the parry window.
@@ -194,15 +210,57 @@ func _process(delta: float) -> void:
 # if the player presses the heavy attack button then they will heavy attack
  
 
+func start_dash(direction):
+
+	if is_attacking:
+		return
+# returns the function if the player is attacking
+
+	if is_blocking:
+		return
+# returns the function if the player is blocking
+
+	if is_parrying:
+		return
+# returns the function if the player is parrying
+
+	if is_stunned:
+		return
+# returns the function if the player is stunned
+
+	if is_dashing:
+		return
+# returns the function if the player is already dashing
+
+	is_dashing = true
+# sets dashing to true and plays the dash animation
+
+	if direction != 0:
+		velocity.x = direction * dash
+# if the player is not stationary then they will dash the direction they are moving
+
+	else:
+		if sprite_2d.flip_h:
+			velocity.x = -dash
+		else: 
+			velocity.x = dash
+# if the player is stationary then they will dash the direction they are facing
+
+	await get_tree().create_timer(0.2).timeout
+	is_dashing = false
+# after 0.2 seconds dashing will be set to false
+
+
 func light_attack():
 
 	if is_attacking:
 		return
 # returns the function if the player is attacking
-	
+
 	if is_blocking:
 		return
 # returns the function if the player is blocking
+
 
 	is_attacking = true 
 # sets attacking to true

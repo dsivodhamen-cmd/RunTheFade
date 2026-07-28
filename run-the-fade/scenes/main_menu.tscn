@@ -21,7 +21,7 @@ offset_right = 772.0
 offset_bottom = 156.0
 theme_override_font_sizes/font_size = 50
 text = "Run The Fade
-Prototype"
+Vertical Slice"
 horizontal_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=325420556]
