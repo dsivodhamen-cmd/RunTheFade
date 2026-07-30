@@ -1,10 +1,5 @@
 extends Control
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
-
-func _ready() -> void:
-	sprite_2d.flip_h = true
-# flips the player 2 sprite so that it faces the player 1 sprite
 
 func _play() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/game.tscn")

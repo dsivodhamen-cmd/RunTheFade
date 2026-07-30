@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://c3w2mmbcg1aon"]
 
 [ext_resource type="Script" uid="uid://7xq5m16yn8dn" path="res://scripts/main_menu.gd" id="1_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://cls63m3ypqf23" path="res://assets/Player 2 Sprite sheet.png" id="2_wu84c"]
-[ext_resource type="Texture2D" uid="uid://bvblgs0dab7o2" path="res://assets/Player 1 Sprite sheet.png" id="3_8ln24"]
+[ext_resource type="Texture2D" uid="uid://cp3c1q77pedl1" path="res://assets/Screenshot 2026-07-30 142446.png" id="2_ekxnf"]
 
 [node name="Control" type="Control" unique_id=539311951]
 layout_mode = 3
@@ -13,60 +12,42 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
 
-[node name="Label" type="Label" parent="." unique_id=541468203]
+[node name="Screenshot20260730142446" type="Sprite2D" parent="." unique_id=684936727]
+position = Vector2(569, 325.5)
+scale = Vector2(2.0877514, 1.6563308)
+texture = ExtResource("2_ekxnf")
+
+[node name="Play button" type="Button" parent="." unique_id=1644635754]
+show_behind_parent = true
+light_mask = 2
 layout_mode = 0
-offset_left = 446.0
-offset_top = 15.0
-offset_right = 772.0
-offset_bottom = 156.0
-theme_override_font_sizes/font_size = 50
-text = "Run The Fade
-Vertical Slice"
-horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=325420556]
-position = Vector2(699, 245)
-scale = Vector2(2.7145936, 1.661486)
-texture = ExtResource("2_wu84c")
-hframes = 7
-vframes = 7
-frame = 7
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1014998396]
-position = Vector2(497.99997, 222)
-scale = Vector2(2.428076, 1.6031356)
-texture = ExtResource("3_8ln24")
-hframes = 7
-vframes = 7
-frame = 6
-
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=678507658]
-layout_mode = 0
-offset_left = 444.0
-offset_top = 448.0
-offset_right = 791.0
-offset_bottom = 592.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=2139131255]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Play button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1644635754]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Play"
-
-[node name="Options button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1939122880]
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-text = "Options"
-
-[node name="Quit button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=752668085]
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-text = "Quit
+offset_left = 634.00006
+offset_top = 176.0
+offset_right = 739.3543
+offset_bottom = 257.8592
+scale = Vector2(4.2048607, 1.0750164)
+text = "
 "
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Play button" to="." method="_play"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Options button" to="." method="_options"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit button" to="." method="_quit"]
+[node name="Options button" type="Button" parent="." unique_id=1939122880]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 681.0
+offset_top = 312.0
+offset_right = 1028.0
+offset_bottom = 456.0
+scale = Vector2(1.12, 0.6000012)
+theme_override_font_sizes/font_size = 25
+
+[node name="Quit button" type="Button" parent="." unique_id=752668085]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 604.0
+offset_top = 435.0
+offset_right = 951.0
+offset_bottom = 579.0
+scale = Vector2(1, 0.6000012)
+
+[connection signal="pressed" from="Play button" to="." method="_play"]
+[connection signal="pressed" from="Options button" to="." method="_options"]
+[connection signal="pressed" from="Quit button" to="." method="_quit"]
