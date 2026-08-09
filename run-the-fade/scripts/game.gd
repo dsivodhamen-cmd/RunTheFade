@@ -15,12 +15,13 @@ func _ready() -> void:
 	randomize()
 # creates a randomize function
 
-var random_map = maps.pick_random()
+	var random_map = maps.pick_random()
 # picks a random map out of the list and stores it in a varaible
-var map_instance = random_map.instantiate()
+	var map_instance = random_map.instantiate()
 # creates that map in the game and stores it in an varaible.
 
-
+	$Map.add_child(map_instance)
+# puts the map into the "Map" node so that it can be seen in games
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
