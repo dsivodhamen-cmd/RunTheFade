@@ -2,48 +2,15 @@
 
 [ext_resource type="Script" uid="uid://b1m3kbnlip811" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://shi7dasil7k1" path="res://scenes/player-1-body.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://b6sf06jg2vb5p" path="res://scripts/pause_menu.gd" id="2_gee14"]
+[ext_resource type="Texture2D" uid="uid://o30rjprn3qib" path="res://assets/Pause title.png" id="2_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://djrpyt3fki5qb" path="res://scenes/player-2-body.tscn" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://cflga02og3vls" path="res://assets/Pause resume.png" id="3_gee14"]
+[ext_resource type="Texture2D" uid="uid://ckn5kry713e10" path="res://assets/Pause options.png" id="4_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bo0r3pgpwmoy1" path="res://assets/Pause back to menu.png" id="5_vtaks"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yqjtg"]
-load_path = "res://.godot/imported/pixil-frame-0 (3).png-4bd46f1f96c816512f8326c81f373c95.ctex"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
-texture = SubResource("CompressedTexture2D_yqjtg")
-margins = Vector2i(2, 2)
-separation = Vector2i(1, 1)
-texture_region_size = Vector2i(12, 12)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:0/0 = 0
-6:1/0 = 0
-6:2/0 = 0
-6:3/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_lbhrr"]
-tile_size = Vector2i(12, 12)
-sources/0 = SubResource("TileSetAtlasSource_yqjtg")
+[sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
+font_size = 24
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
 size = Vector2(1171.5, 20)
@@ -54,18 +21,124 @@ size = Vector2(1151, 55)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(13, 580)
 
-[sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
-font_size = 24
-
 [node name="Node2D" type="Node2D" unique_id=44579873]
 script = ExtResource("1_lnu2h")
 
 [node name="Map" type="Node2D" parent="." unique_id=346058309]
 
-[node name="TileMap" type="TileMap" parent="." unique_id=178348044]
-tile_set = SubResource("TileSet_lbhrr")
-rendering_quadrant_size = 12
-format = 2
+[node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=264218857]
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer3" unique_id=1935046008]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("2_gee14")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer3/PauseMenu" unique_id=123499068]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 647.0
+color = Color(0.06666667, 0.06666667, 0.06666667, 0.7490196)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer3/PauseMenu" unique_id=85195725]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 600.0
+
+[node name="PauseTitle" type="Sprite2D" parent="CanvasLayer3/PauseMenu/VBoxContainer" unique_id=1603995578]
+position = Vector2(576, 76.875)
+scale = Vector2(1.2706327, 0.98409086)
+texture = ExtResource("2_u5sy4")
+
+[node name="PauseResume" type="Sprite2D" parent="CanvasLayer3/PauseMenu/VBoxContainer" unique_id=1875191467]
+position = Vector2(223, 316)
+texture = ExtResource("3_gee14")
+
+[node name="PauseOptions" type="Sprite2D" parent="CanvasLayer3/PauseMenu/VBoxContainer" unique_id=1848816804]
+position = Vector2(566, 315)
+texture = ExtResource("4_0tnpc")
+
+[node name="PauseBackToMenu" type="Sprite2D" parent="CanvasLayer3/PauseMenu/VBoxContainer" unique_id=74151133]
+position = Vector2(907, 313)
+texture = ExtResource("5_vtaks")
+
+[node name="Resume button" type="Button" parent="CanvasLayer3/PauseMenu" unique_id=1889955107]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 136.0
+offset_top = 227.0
+offset_right = 310.0
+offset_bottom = 405.0
+
+[node name="Options button" type="Button" parent="CanvasLayer3/PauseMenu" unique_id=464610271]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 478.0
+offset_top = 226.0
+offset_right = -498.0
+offset_bottom = -244.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back to Menu button" type="Button" parent="CanvasLayer3/PauseMenu" unique_id=252340759]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 818.0
+offset_top = 224.0
+offset_right = -155.0
+offset_bottom = -248.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
+
+[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
+offset_left = 27.0
+offset_top = 21.0
+offset_right = 225.0
+offset_bottom = 48.0
+
+[node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
+offset_left = 27.0
+offset_top = 49.0
+offset_right = 178.0
+offset_bottom = 76.0
+
+[node name="Player1Lifes" type="Label" parent="CanvasLayer2" unique_id=1012676734]
+offset_left = 188.0
+offset_top = 44.0
+offset_right = 228.0
+offset_bottom = 67.0
+label_settings = SubResource("LabelSettings_yqjtg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
+
+[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
+offset_left = 933.0
+offset_top = 21.0
+offset_right = 1131.0
+offset_bottom = 48.0
+
+[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
+offset_left = 989.0
+offset_top = 49.0
+offset_right = 1129.0
+offset_bottom = 76.0
+
+[node name="Player2Lifes" type="Label" parent="CanvasLayer" unique_id=1136215564]
+offset_left = 957.0
+offset_top = 47.0
+offset_right = 997.0
+offset_bottom = 81.0
+label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="CharacterBody2D" parent="." unique_id=758958205 node_paths=PackedStringArray("p1_health_ui", "p1_posture_ui", "p1_lifes_ui") instance=ExtResource("1_uwrxv")]
 position = Vector2(317, 526)
@@ -106,44 +179,6 @@ position = Vector2(1160, 206)
 position = Vector2(-3.5, 89)
 shape = SubResource("RectangleShape2D_yqjtg")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
-
-[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
-offset_left = 933.0
-offset_top = 21.0
-offset_right = 1131.0
-offset_bottom = 48.0
-
-[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
-offset_left = 989.0
-offset_top = 49.0
-offset_right = 1129.0
-offset_bottom = 76.0
-
-[node name="Player2Lifes" type="Label" parent="CanvasLayer" unique_id=1136215564]
-offset_left = 957.0
-offset_top = 47.0
-offset_right = 997.0
-offset_bottom = 81.0
-label_settings = SubResource("LabelSettings_yqjtg")
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
-
-[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
-offset_left = 27.0
-offset_top = 21.0
-offset_right = 225.0
-offset_bottom = 48.0
-
-[node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
-offset_left = 27.0
-offset_top = 49.0
-offset_right = 178.0
-offset_bottom = 76.0
-
-[node name="Player1Lifes" type="Label" parent="CanvasLayer2" unique_id=1012676734]
-offset_left = 188.0
-offset_top = 44.0
-offset_right = 228.0
-offset_bottom = 67.0
-label_settings = SubResource("LabelSettings_yqjtg")
+[connection signal="pressed" from="CanvasLayer3/PauseMenu/Resume button" to="CanvasLayer3/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/PauseMenu/Options button" to="CanvasLayer3/PauseMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/PauseMenu/Back to Menu button" to="CanvasLayer3/PauseMenu" method="_on_back_to_menu_button_pressed"]
