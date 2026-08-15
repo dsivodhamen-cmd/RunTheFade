@@ -26,6 +26,48 @@ script = ExtResource("1_lnu2h")
 
 [node name="Map" type="Node2D" parent="." unique_id=346058309]
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
+
+[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
+offset_left = 27.0
+offset_top = 21.0
+offset_right = 225.0
+offset_bottom = 48.0
+
+[node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
+offset_left = 27.0
+offset_top = 49.0
+offset_right = 178.0
+offset_bottom = 76.0
+
+[node name="Player1Lifes" type="Label" parent="CanvasLayer2" unique_id=1012676734]
+offset_left = 188.0
+offset_top = 44.0
+offset_right = 228.0
+offset_bottom = 67.0
+label_settings = SubResource("LabelSettings_yqjtg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
+
+[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
+offset_left = 933.0
+offset_top = 21.0
+offset_right = 1131.0
+offset_bottom = 48.0
+
+[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
+offset_left = 989.0
+offset_top = 49.0
+offset_right = 1129.0
+offset_bottom = 76.0
+
+[node name="Player2Lifes" type="Label" parent="CanvasLayer" unique_id=1136215564]
+offset_left = 957.0
+offset_top = 47.0
+offset_right = 997.0
+offset_bottom = 81.0
+label_settings = SubResource("LabelSettings_yqjtg")
+
 [node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=264218857]
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer3" unique_id=1935046008]
@@ -97,48 +139,6 @@ offset_right = -155.0
 offset_bottom = -248.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
-
-[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
-offset_left = 27.0
-offset_top = 21.0
-offset_right = 225.0
-offset_bottom = 48.0
-
-[node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
-offset_left = 27.0
-offset_top = 49.0
-offset_right = 178.0
-offset_bottom = 76.0
-
-[node name="Player1Lifes" type="Label" parent="CanvasLayer2" unique_id=1012676734]
-offset_left = 188.0
-offset_top = 44.0
-offset_right = 228.0
-offset_bottom = 67.0
-label_settings = SubResource("LabelSettings_yqjtg")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
-
-[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
-offset_left = 933.0
-offset_top = 21.0
-offset_right = 1131.0
-offset_bottom = 48.0
-
-[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
-offset_left = 989.0
-offset_top = 49.0
-offset_right = 1129.0
-offset_bottom = 76.0
-
-[node name="Player2Lifes" type="Label" parent="CanvasLayer" unique_id=1136215564]
-offset_left = 957.0
-offset_top = 47.0
-offset_right = 997.0
-offset_bottom = 81.0
-label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="CharacterBody2D" parent="." unique_id=758958205 node_paths=PackedStringArray("p1_health_ui", "p1_posture_ui", "p1_lifes_ui") instance=ExtResource("1_uwrxv")]
 position = Vector2(317, 526)

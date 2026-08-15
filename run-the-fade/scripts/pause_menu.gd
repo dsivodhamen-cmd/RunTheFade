@@ -5,7 +5,7 @@ extends Control
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
-# Keeps the menu working even while game is paused
+# Keeps the menu working even while game is paused	
 
 
 func _input(event):
@@ -32,11 +32,6 @@ func resume_game():
 	hide()
 	get_tree().paused = false
 # the function for resmuming the game, setting the pause to false and hiding the pause menuu
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _on_resume_button_pressed() -> void:
