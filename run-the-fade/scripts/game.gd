@@ -5,7 +5,9 @@ var maps = [
 	preload("res://scenes/map_2.tscn"),
 	preload("res://scenes/map_3.tscn"),
 	preload("res://scenes/map_4.tscn"),
-	preload("res://scenes/map_5.tscn")
+	preload("res://scenes/map_5.tscn"),
+	preload("res://scenes/map_6.tscn"),
+	preload("res://scenes/map_7.tscn")
 ]
 # creates a varaible that store all maps and preloads them in a list
 
