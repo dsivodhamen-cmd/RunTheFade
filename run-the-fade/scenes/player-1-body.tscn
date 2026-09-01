@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://shi7dasil7k1"]
 
 [ext_resource type="Script" uid="uid://5mrh84d35n77" path="res://scripts/player_1.gd" id="1_xoiyv"]
-[ext_resource type="Texture2D" uid="uid://bvblgs0dab7o2" path="res://assets/Player 1 Sprite sheet.png" id="2_ggp8a"]
+[ext_resource type="Texture2D" uid="uid://cbulotkbv3aq" path="res://assets/Player 1 Sprite sheet v2.png" id="2_ggp8a"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t17lp"]
 height = 52.0
@@ -285,7 +285,7 @@ animation = NodePath("AnimationPlayer")
 p1_hitbox = NodePath("Area2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1602648504]
-position = Vector2(9, -24.798618)
+position = Vector2(-3.9999964, -20.79862)
 scale = Vector2(0.9811521, 0.73752165)
 texture = ExtResource("2_ggp8a")
 hframes = 7
