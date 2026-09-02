@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://02c40ovuub2k"]
+
+[ext_resource type="Texture2D" uid="uid://d23nht1r8mcj1" path="res://assets/Black Victory screen.png" id="1_i4q2y"]
+[ext_resource type="Script" uid="uid://cffw1rhcfoaqs" path="res://scripts/black_victory_screen.gd" id="1_w2qrm"]
+
+[node name="Control" type="Control" unique_id=874584880]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w2qrm")
+
+[node name="BlackVictoryScreen" type="Sprite2D" parent="." unique_id=1777790763]
+position = Vector2(577, 324)
+scale = Vector2(1.9011532, 1.5034803)
+texture = ExtResource("1_i4q2y")
+
+[node name="Button" type="Button" parent="." unique_id=551872358]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 1098.0
+offset_top = 603.0
+offset_right = 1139.0
+offset_bottom = 640.0
+
+[connection signal="pressed" from="Button" to="." method="_continue"]

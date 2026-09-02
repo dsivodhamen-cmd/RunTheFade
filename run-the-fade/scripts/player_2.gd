@@ -473,5 +473,5 @@ func death():
 # sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
 
 	else:
-		get_tree().quit()
-# if the player doesnt enough lifes then the game will end (FOR NOW)
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/black_victory_screen.tscn")
+# if the player doesnt enough lifes then the player lost and the game will go to the black player victory screen

@@ -10,11 +10,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.0093468, 0.99679536)
 script = ExtResource("1_bqqt6")
 
 [node name="Screenshot20260730142446" type="Sprite2D" parent="." unique_id=684936727]
-position = Vector2(569, 325.5)
-scale = Vector2(2.0877514, 1.6563308)
+position = Vector2(569, 323.50162)
+scale = Vector2(2.0877514, 1.6666584)
 texture = ExtResource("2_ekxnf")
 
 [node name="Play button" type="Button" parent="." unique_id=1644635754]
