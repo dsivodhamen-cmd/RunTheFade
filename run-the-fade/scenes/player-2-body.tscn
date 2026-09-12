@@ -3,11 +3,12 @@
 [ext_resource type="Script" uid="uid://drff0r2dd6got" path="res://scripts/player_2.gd" id="1_av8ke"]
 [ext_resource type="Texture2D" uid="uid://dddu32g4nxqkk" path="res://assets/Player 2 Sprite sheet v2.png" id="2_r8fjk"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv15m"]
-height = 52.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r8fjk"]
+radius = 14.0
+height = 56.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_av8ke"]
-size = Vector2(38, 54)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo5eu"]
+size = Vector2(42, 57)
 
 [sub_resource type="Animation" id="Animation_ggp8a"]
 resource_name = "Block"
@@ -56,6 +57,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_w2gr0"]
 resource_name = "Heavy down attack"
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,7 +65,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [10, 11]
@@ -71,6 +73,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ys4xf"]
 resource_name = "Heavy side attack"
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -78,7 +81,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [12, 13]
@@ -86,6 +89,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_jqkn8"]
 resource_name = "Heavy up attack"
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,7 +97,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [8, 9]
@@ -290,14 +294,17 @@ texture = ExtResource("2_r8fjk")
 hframes = 7
 vframes = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1889624355]
-shape = SubResource("CapsuleShape2D_sv15m")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=459572266]
+position = Vector2(-4.7683716e-07, -1.9073486e-06)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("CapsuleShape2D_r8fjk")
 one_way_collision = true
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1413395422]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2058650547]
-shape = SubResource("RectangleShape2D_av8ke")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1684574964]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qo5eu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=203279019]
 libraries/ = SubResource("AnimationLibrary_r8fjk")

@@ -2,12 +2,31 @@
 
 [ext_resource type="Script" uid="uid://b1m3kbnlip811" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://shi7dasil7k1" path="res://scenes/player-1-body.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://dn0fvctkwclje" path="res://assets/Player 1 bar.png" id="2_0tnpc"]
 [ext_resource type="Script" uid="uid://b6sf06jg2vb5p" path="res://scripts/pause_menu.gd" id="2_gee14"]
 [ext_resource type="Texture2D" uid="uid://o30rjprn3qib" path="res://assets/Pause title.png" id="2_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://djrpyt3fki5qb" path="res://scenes/player-2-body.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://cflga02og3vls" path="res://assets/Pause resume.png" id="3_gee14"]
+[ext_resource type="Texture2D" uid="uid://bj8bw1dgt6ksb" path="res://assets/Player 2 bar.png" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://ckn5kry713e10" path="res://assets/Pause options.png" id="4_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bo0r3pgpwmoy1" path="res://assets/Pause back to menu.png" id="5_vtaks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtaks"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
+bg_color = Color(0, 0.54901963, 1, 1)
+corner_radius_top_left = 21
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 11
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvpfn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tnpc"]
+bg_color = Color(0.13725491, 1, 0.14901961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
 font_size = 24
@@ -28,47 +47,69 @@ script = ExtResource("1_lnu2h")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=753485119]
 
-[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
-offset_left = 27.0
-offset_top = 21.0
-offset_right = 225.0
-offset_bottom = 48.0
-
 [node name="Player1Posture" type="ProgressBar" parent="CanvasLayer2" unique_id=1765089329]
-offset_left = 27.0
-offset_top = 49.0
-offset_right = 178.0
-offset_bottom = 76.0
+offset_left = 56.0
+offset_top = 75.0
+offset_right = 352.0
+offset_bottom = 100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vtaks")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dinhu")
+
+[node name="Player1HP" type="ProgressBar" parent="CanvasLayer2" unique_id=1013640763]
+offset_left = 87.0
+offset_top = 45.0
+offset_right = 410.0
+offset_bottom = 72.0
+theme_override_styles/background = SubResource("StyleBoxFlat_kvpfn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="Player1Bar" type="Sprite2D" parent="CanvasLayer2" unique_id=519891530]
+position = Vector2(274, 170)
+scale = Vector2(2.8906252, 1.8125)
+texture = ExtResource("2_0tnpc")
 
 [node name="Player1Lifes" type="Label" parent="CanvasLayer2" unique_id=1012676734]
-offset_left = 188.0
+offset_left = 23.0
 offset_top = 44.0
-offset_right = 228.0
-offset_bottom = 67.0
+offset_right = 63.0
+offset_bottom = 78.0
 label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=842231038]
 
-[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=510173005]
-offset_left = 933.0
-offset_top = 21.0
-offset_right = 1131.0
-offset_bottom = 48.0
+[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=441587944]
+offset_left = 798.0
+offset_top = 75.0
+offset_right = 1094.0
+offset_bottom = 100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vtaks")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dinhu")
+fill_mode = 1
 
-[node name="Player2Posture" type="ProgressBar" parent="CanvasLayer" unique_id=1950636327]
-offset_left = 989.0
-offset_top = 49.0
-offset_right = 1129.0
-offset_bottom = 76.0
+[node name="Player2HP" type="ProgressBar" parent="CanvasLayer" unique_id=1710891571]
+offset_left = 734.0
+offset_top = 44.0
+offset_right = 1057.0
+offset_bottom = 71.0
+theme_override_styles/background = SubResource("StyleBoxFlat_kvpfn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0tnpc")
+fill_mode = 1
+
+[node name="Player2Bar" type="Sprite2D" parent="CanvasLayer" unique_id=45320084]
+position = Vector2(872.00006, 170)
+scale = Vector2(2.891, 1.814)
+texture = ExtResource("3_vtaks")
+flip_h = true
 
 [node name="Player2Lifes" type="Label" parent="CanvasLayer" unique_id=1136215564]
-offset_left = 957.0
-offset_top = 47.0
-offset_right = 997.0
-offset_bottom = 81.0
+offset_left = 1097.0
+offset_top = 50.0
+offset_right = 1137.0
+offset_bottom = 84.0
 label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=264218857]
+visible = false
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer3" unique_id=1935046008]
 layout_mode = 3

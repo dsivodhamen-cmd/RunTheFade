@@ -340,7 +340,7 @@ func heavy_attack():
 		knockback = Vector2(0, -heavy_up_knockback)
 # changes the knockback variable value to the heavy_up_knockback ammount
 
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.25).timeout
 #creates a timer of 0.5s before dealing damage and knockback to players
 
 	for area in p2_hitbox.get_overlapping_areas():
@@ -402,14 +402,15 @@ func take_damage(amount, knockback, stun, attacker):
 		p2_posture -= amount
 		p2_posture_ui.value = p2_posture
 # if the player is blocking, damage gets converted into posture damage and makes the player lose posture
-		
-		print("blocked")
 
 		if p2_posture <= 0: 
 			posture_break()
 		
 		return
 # allows the player to block damage again imediatly
+
+	is_attacking = false
+#if the player is attacking and gets hit, their attack will stop.
 	
 	
 	if p2_health > 0:
