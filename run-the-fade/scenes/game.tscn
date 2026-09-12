@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bj8bw1dgt6ksb" path="res://assets/Player 2 bar.png" id="3_vtaks"]
 [ext_resource type="Texture2D" uid="uid://ckn5kry713e10" path="res://assets/Pause options.png" id="4_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bo0r3pgpwmoy1" path="res://assets/Pause back to menu.png" id="5_vtaks"]
+[ext_resource type="PackedScene" uid="uid://crum6xxbtujjf" path="res://scenes/options_menu.tscn" id="9_kvpfn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtaks"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -109,7 +110,6 @@ offset_bottom = 84.0
 label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=264218857]
-visible = false
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer3" unique_id=1935046008]
 layout_mode = 3
@@ -180,6 +180,11 @@ offset_right = -155.0
 offset_bottom = -248.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="OptionsMenu" parent="CanvasLayer3/PauseMenu" unique_id=1220394036 instance=ExtResource("9_kvpfn")]
+visible = false
+layout_mode = 1
+is_in_pause_menu = true
 
 [node name="CharacterBody2D" parent="." unique_id=758958205 node_paths=PackedStringArray("p1_health_ui", "p1_posture_ui", "p1_lifes_ui") instance=ExtResource("1_uwrxv")]
 position = Vector2(317, 526)

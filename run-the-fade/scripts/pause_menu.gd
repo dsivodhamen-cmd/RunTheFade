@@ -1,5 +1,10 @@
 extends Control
 
+@onready var resume_button = $"Resume button"
+@onready var options_button = $"Options button"
+@onready var back_to_menu_button = $"Back to Menu button"
+@onready var options_menu = $OptionsMenu
+#instacning the buttons and options menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,7 +36,16 @@ func pause_game():
 func resume_game():
 	hide()
 	get_tree().paused = false
+	show_pause_buttons()
 # the function for resmuming the game, setting the pause to false and hiding the pause menuu
+
+
+func show_pause_buttons():
+	resume_button.visible = true
+	options_button.visible = true
+	back_to_menu_button.visible = true
+	options_menu.visible = false
+#shows the 3 pause buttons and hides options mneu
 
 
 func _on_resume_button_pressed() -> void:
@@ -40,7 +54,11 @@ func _on_resume_button_pressed() -> void:
 
 
 func _on_options_button_pressed() -> void:
-	pass
+	resume_button.visible = false
+	options_button.visible = false
+	back_to_menu_button.visible = false
+	options_menu.visible = true
+# hides the 3 pause buttons and shows the options menu when the options button is pressed
 
 
 func _on_back_to_menu_button_pressed() -> void:
