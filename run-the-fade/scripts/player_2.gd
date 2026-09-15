@@ -36,7 +36,8 @@ var dash = 500
 var is_dashing = false
 # creates a varaible storing the players dash, makes it where the player isnt dashing
 
-
+@export var player_id: String = "p2"
+# exporting an varaible storing the players ID and making it a string (used to refer stats)
 @export var animation: AnimationPlayer
 # exporting an varaible storing all the animations for player 2
 @export var light_attack_damage: int = 10
@@ -297,6 +298,9 @@ func light_attack():
 			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun, self)
 # if there is an area that isnt the p2_hitbox then it will take damage, stun and knockback
 # self is used to reference the player
+			GameStats.stats[player_id]["Damage_done"] += light_attack_damage
+# Adds the light attack damage to the players damage done stat
+
 	await animation.animation_finished 
 	is_attacking = false 
 # waits for the animation to end and then makes the player stop attacking
@@ -349,6 +353,9 @@ func heavy_attack():
 			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun, self)
 # if there is an area that isnt the p2_hitbox then it will take damage, knockback, and stun
 # self is used to reference the player
+			GameStats.stats[player_id]["Damage_done"] += heavy_attack_damage
+# Adds the heavy_attack_damage to the players damage done stat
+
 	await animation.animation_finished
 	is_attacking = false 
 # waits for the animation to end and then makes the player stop attacking
@@ -383,6 +390,10 @@ func take_stun(duration):
 func take_damage(amount, knockback, stun, attacker): 
 # attacker is used to reference the player to the attacker
 
+	if is_dead:
+		return
+# returns the function if the player is dead
+
 	if is_parrying:
 		
 		is_parrying = false
@@ -394,6 +405,9 @@ func take_damage(amount, knockback, stun, attacker):
 		
 		attacker.take_stun(parry_stun)
 # if the attacker attacks the player while they are parrying then they will take stun
+		GameStats.stats[player_id]["Parries"] += 1
+# Adds 1 to the players Parries stat total
+
 		return
 # returns the function
 	
@@ -402,6 +416,8 @@ func take_damage(amount, knockback, stun, attacker):
 		p2_posture -= amount
 		p2_posture_ui.value = p2_posture
 # if the player is blocking, damage gets converted into posture damage and makes the player lose posture
+		GameStats.stats[player_id]["Damage_blocked"] += amount
+# Adds the amount to the players Damage blocked stat total
 
 		if p2_posture <= 0: 
 			posture_break()
@@ -417,12 +433,16 @@ func take_damage(amount, knockback, stun, attacker):
 		p2_health -= amount
 		p2_health_ui.value = p2_health
 # if the player has health greater than 0 and takes damage it will take damage lowering the HP
+		GameStats.stats[player_id]["Damage_taken"] += amount
+# Adds the amount to the players Damage taken stat total
 		take_knockback(knockback)
 # the player takes knockback acording to the attack that they were hit with.
 		take_stun(stun)
 # makes the player take stun according to the attack that they were hit with
 
-	if p2_health <= 0: 
+	if p2_health <= 0 and not is_dead: 
+		GameStats.stats[attacker.player_id]["Kills"] += 1
+# Adds 1 to the attackers players Kills stat total
 		death()
 # if the players health goes bellow or is 0 they will die
 
@@ -446,6 +466,8 @@ func death():
 		return
 # returns the function if the player is already dead
 
+	GameStats.stats[player_id]["Deaths"] += 1
+# Adds 1 to the players Deaths stat total
 	is_dead = true
 # makes the player dead
 	animation.play("Death")

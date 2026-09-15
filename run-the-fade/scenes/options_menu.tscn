@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c33ib2qwufb1d" path="res://scripts/options_menu.gd" id="1_liyum"]
 [ext_resource type="Texture2D" uid="uid://d33oswbndf7ih" path="res://assets/Options menu.png" id="2_ijpji"]
+[ext_resource type="PackedScene" uid="uid://dr8bx8l08j4mq" path="res://scenes/help_doc.tscn" id="3_hm4m4"]
 
 [node name="Control" type="Control" unique_id=1220394036]
 layout_mode = 3
@@ -48,5 +49,18 @@ offset_top = 303.0
 offset_right = 881.0
 offset_bottom = 589.0
 
+[node name="Help Doc button" type="Button" parent="." unique_id=1370719041]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 607.0
+offset_right = 1144.0
+offset_bottom = 643.0
+
+[node name="Help Doc" parent="." unique_id=1460765549 instance=ExtResource("3_hm4m4")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="Back button" to="." method="_back"]
 [connection signal="pressed" from="Button" to="." method="_on_full_screen_button_pressed"]
+[connection signal="pressed" from="Help Doc button" to="." method="_on_help_doc_button_pressed"]

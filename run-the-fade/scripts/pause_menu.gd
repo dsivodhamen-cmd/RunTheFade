@@ -63,5 +63,9 @@ func _on_options_button_pressed() -> void:
 
 func _on_back_to_menu_button_pressed() -> void:
 	get_tree().paused = false
+	for player in GameStats.stats:
+		for stat in GameStats.stats[player]:
+			GameStats.stats[player][stat] = 0
+# a for loop going through each player and stat in the GameStats and reseting them back to 0
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 # changes the scene to the main menu and unpauses when the back to menu button is pressed

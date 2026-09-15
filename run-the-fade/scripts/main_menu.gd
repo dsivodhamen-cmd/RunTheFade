@@ -1,5 +1,6 @@
 extends Control
 
+@onready var help_doc = $"Help doc"
 
 func _play() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/game.tscn")
@@ -12,3 +13,8 @@ func _quit() -> void:
 
 func _options() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/options_menu.tscn")
+
+
+func _on_help_doc_button_pressed() -> void:
+	help_doc.visible = true
+# when the player press the help button the help doc will become visible

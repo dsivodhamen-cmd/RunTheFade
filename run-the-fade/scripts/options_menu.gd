@@ -1,5 +1,6 @@
 extends Control
 
+@onready var help_doc = $"Help Doc"
 
 var p1_keybinds = ["p1_up", "p1_left", "p1_down", "p1_right", "p1_light_attack",
 "p1_heavy_attack", "p1_block", "p1_dash"]
@@ -35,7 +36,7 @@ func build_keybind_list(keybinds: Array, container: VBoxContainer) -> void:
 		button.text = get_bind_text(keybind)
 		button.pressed.connect(_on_bind_button_pressed.bind(keybind, button))
 		container.add_child(button)
-# for lopp going through each keybind per keybinds and adds them to the list
+# for loop going through each keybind per keybinds and adds them to the list
 
 
 func get_bind_text(keybind: String) -> String:
@@ -84,3 +85,9 @@ func _on_full_screen_button_pressed() -> void:
 # if the game is already in full screen then it will set the game to windowed
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
+# puts the game into fullscreen
+
+
+func _on_help_doc_button_pressed() -> void:
+	help_doc.visible = true
+# when the help button is pressed the help doc becomes visible

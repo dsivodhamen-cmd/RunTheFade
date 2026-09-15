@@ -286,6 +286,7 @@ _data = {
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=758958205 node_paths=PackedStringArray("animation", "p1_hitbox")]
 script = ExtResource("1_xoiyv")
 animation = NodePath("AnimationPlayer")
+light_attack_damage = 15
 p1_hitbox = NodePath("Area2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1602648504]

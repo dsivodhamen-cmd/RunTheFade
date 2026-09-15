@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dr8bx8l08j4mq"]
+
+[ext_resource type="Script" uid="uid://b4xeskuq2bbam" path="res://scripts/help_doc.gd" id="1_0st3x"]
+[ext_resource type="Texture2D" uid="uid://t3axaa2xqc8v" path="res://assets/Help doc.png" id="1_txwgp"]
+
+[node name="Control" type="Control" unique_id=1460765549]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0st3x")
+
+[node name="HelpDoc" type="Sprite2D" parent="." unique_id=276340256]
+position = Vector2(566, 318)
+texture = ExtResource("1_txwgp")
+
+[node name="Button" type="Button" parent="." unique_id=1582319946]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 815.0
+offset_top = 125.0
+offset_right = 843.0
+offset_bottom = 153.0
+
+[connection signal="pressed" from="Button" to="." method="_on_close_button_pressed"]

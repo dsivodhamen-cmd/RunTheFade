@@ -25,4 +25,24 @@ offset_top = 603.0
 offset_right = 1139.0
 offset_bottom = 640.0
 
+[node name="P1Stats" type="Label" parent="." unique_id=1936899886]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 377.0
+offset_right = 516.0
+offset_bottom = 584.0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+uppercase = true
+
+[node name="P2Stats" type="Label" parent="." unique_id=448347223]
+layout_mode = 0
+offset_left = 639.0
+offset_top = 414.0
+offset_right = 1041.0
+offset_bottom = 621.0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+uppercase = true
+
 [connection signal="pressed" from="Button" to="." method="_continue"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7xq5m16yn8dn" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://cp3c1q77pedl1" path="res://assets/Screenshot 2026-07-30 142446.png" id="2_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://dr8bx8l08j4mq" path="res://scenes/help_doc.tscn" id="3_bqqt6"]
 
 [node name="Control" type="Control" unique_id=539311951]
 layout_mode = 3
@@ -49,6 +50,19 @@ offset_right = 951.0
 offset_bottom = 579.0
 scale = Vector2(1, 0.6000012)
 
+[node name="Help doc button" type="Button" parent="." unique_id=1352310230]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 1092.786
+offset_top = 612.96436
+offset_right = 1138.3599
+offset_bottom = 650.0833
+
+[node name="Help doc" parent="." unique_id=1460765549 instance=ExtResource("3_bqqt6")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="Play button" to="." method="_play"]
 [connection signal="pressed" from="Options button" to="." method="_options"]
 [connection signal="pressed" from="Quit button" to="." method="_quit"]
+[connection signal="pressed" from="Help doc button" to="." method="_on_help_doc_button_pressed"]
