@@ -1,5 +1,8 @@
 extends Control
 
+var stat_reset = 0
+# varriable storing the value for the stat reset
+
 @onready var p1_stats_label = $P1Stats
 @onready var p2_stats_label = $P2Stats
 # a varriable storing p1 and p2 stats in a label
@@ -20,7 +23,7 @@ func _ready() -> void:
 func _continue() -> void:
 	for player in GameStats.stats:
 		for stat in GameStats.stats[player]:
-			GameStats.stats[player][stat] = 0
+			GameStats.stats[player][stat] = stat_reset
 # a for loop going through each player and stat in the GameStats and reseting them back to 0
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/main_menu.tscn")
 # when the user presses the continue button they will be returned to to main menuu

@@ -9,6 +9,10 @@ var max_jumps = 5
 # create a variable storing the max jumps the player can jump
 var jumps_left = 5
 # create a varaible storing the ammount of jumps the player has
+var minus_jumps = 1
+# creates a varriable storing the value the player losses when they jump
+var no_jumps = 0
+# creats a varriable storing the value the player has when they have no jumps
 var p1_health: int = 500
 # create a varaible storing the players health as an interger
 var p1_max_health: int = 500
@@ -35,6 +39,26 @@ var dash = 500
 # create a varaible storing the players dash
 var is_dashing = false
 # creates a varaible storing the players dash, makes it where the player isnt dashing
+var dash_cooldown = 0.2
+# creates a varraible storing the players dash cooldown
+var dash_distance = 0.2
+# creates a varriable storing the players dash distance
+var heavy_attack_delay = 0.25
+# creates a varriable storing the players heavy attack delay
+var posture_gain = 10
+# creates a varaible storing the players posture gain when landing a parry
+var add_stat = 1
+# creates a varriable storing the value that players stat increases by
+var death_time = 3
+# creates a varrialbe storing the time that the player remains dead
+var death_hp = 0
+# creates a vararible storing the hp of the player when they are dead
+var broken_posture_amount = 0
+# creates a varriable storing the posture of the player when their posture is broken
+var minus_lives = 1
+# creats a varraible storing the value the player losses when the lose a live
+var no_lives = 0
+# creates a varraible storing the value the player has when they have no lives
 
 @export var player_id: String = "p1"
 # exporting an varaible storing the players ID and making it a string (used to refer stats)
@@ -137,7 +161,7 @@ func _physics_process(delta: float) -> void:
 # if the player presses the dash button then they will dash
 
 	if direction: 
-		velocity.x = lerp(velocity.x, direction * speed, 0.2)
+		velocity.x = lerp(velocity.x, direction * speed, dash_distance)
 		
 # allows the player to move in the direction they are holding
 		if is_on_floor():
@@ -157,7 +181,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("p1_up"):
 			velocity.y = jump
 			animation.play("jumping")
-			jumps_left -= 1
+			jumps_left -= minus_jumps
 # allows the player to jump when they are on the floor and plays the jumping animation
 
 	if not is_on_floor():
@@ -167,10 +191,10 @@ func _physics_process(delta: float) -> void:
 			animation.play("falling")
 # if the player is falling (negative y) then the falling animation will play
 
-		if Input.is_action_just_pressed("p1_up") and jumps_left > 0:
+		if Input.is_action_just_pressed("p1_up") and jumps_left > no_jumps:
 			velocity.y = jump
 			animation.play("jumping")
-			jumps_left -= 1
+			jumps_left -= minus_jumps
 # allows the player to jump in the air if they have enough jumps left and plays the jumping animation
 
 	move_and_slide()
@@ -247,7 +271,7 @@ func start_dash(direction):
 			velocity.x = dash
 # if the player is stationary then they will dash the direction they are facing
 
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(dash_cooldown).timeout
 	is_dashing = false
 # after 0.2 seconds dashing will be set to false
 
@@ -344,8 +368,8 @@ func heavy_attack():
 		knockback = Vector2(0, -heavy_up_knockback)
 # changes the knockback variable value to the heavy_up_knockback ammount
 
-	await get_tree().create_timer(0.25).timeout
-#creates a timer of 0.5s before dealing damage and knockback to players
+	await get_tree().create_timer(heavy_attack_delay).timeout
+#creates a timer of 0.25s before dealing damage and knockback to players
 
 	for area in p1_hitbox.get_overlapping_areas():
 # a for loop going through all areas inside of p1_hitbox
@@ -399,13 +423,13 @@ func take_damage(amount, knockback, stun, attacker):
 		is_parrying = false
 # if player lands a parry then it will turn off
 		if p1_posture < p1_max_posture:
-			p1_posture += 10 
+			p1_posture += posture_gain 
 			p1_posture_ui.value = p1_posture
 # if the player has less than the max posture then when the player lands a parry they will gain 15 posture.
 		
 		attacker.take_stun(parry_stun)
 # if the attacker attacks the player while they are parrying then they will take stun
-		GameStats.stats[player_id]["Parries"] += 1
+		GameStats.stats[player_id]["Parries"] += add_stat
 # Adds 1 to the players Parries stat total
 
 		return
@@ -420,7 +444,7 @@ func take_damage(amount, knockback, stun, attacker):
 # Adds the amount to the players Damage blocked stat total
 
 
-		if p1_posture <= 0: 
+		if p1_posture <= broken_posture_amount: 
 			posture_break()
 		
 		return
@@ -429,7 +453,7 @@ func take_damage(amount, knockback, stun, attacker):
 	is_attacking = false
 # if the player is attacking and gets hit, their attack will stop.
 
-	if p1_health > 0:
+	if p1_health > death_hp:
 		p1_health -= amount
 		p1_health_ui.value = p1_health
 # if the player has health greater than 0 and takes damage it will take damage lowering the HP
@@ -440,8 +464,8 @@ func take_damage(amount, knockback, stun, attacker):
 		take_stun(stun)
 # makes the player take stun according to the attack that they were hit with
 
-	if p1_health <= 0 and not is_dead: 
-		GameStats.stats[attacker.player_id]["Kills"] += 1
+	if p1_health <= death_hp and not is_dead: 
+		GameStats.stats[attacker.player_id]["Kills"] += add_stat
 # Adds 1 to the attackers players Kills stat total
 		death()
 # if the players health goes bellow or is 0 they will die
@@ -466,19 +490,19 @@ func death():
 		return
 # returns the function if the player is already dead
 
-	GameStats.stats[player_id]["Deaths"] += 1
+	GameStats.stats[player_id]["Deaths"] += add_stat
 # Adds 1 to the players Deaths stat total
 	is_dead = true
 # makes the player dead
 	animation.play("Death")
-	await get_tree().create_timer(3).timeout
-# plays the death animation and waits 3 seconds after the player dies 
+	await get_tree().create_timer(death_time).timeout
+# plays the death animation and waits 3 seconds after the player dies
 
-	lifes -= 1
+	lifes -= minus_lives
 	p1_lifes_ui.text = str(lifes)
 # decreases lives by 1 once the player dies and updates the UI value
 
-	if lifes > 0:
+	if lifes > no_lives:
 
 		p1_health = p1_max_health
 		p1_health_ui.value = p1_health
