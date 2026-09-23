@@ -2,117 +2,117 @@ extends CharacterBody2D
 
 
 var speed = 300
-# create a varaible storing the players speed
+# Create a varaible storing the players speed
 var jump = -400
-# create a varaible storing the players jump
+# Create a varaible storing the players jump
 var max_jumps = 5
-# create a variable storing the max jumps the player can jump
+# Create a variable storing the max jumps the player can jump
 var jumps_left = 5
-# create a varaible storing the ammount of jumps the player has
+# Create a varaible storing the ammount of jumps the player has
 var minus_jumps = 1
-# creates a varriable storing the value the player losses when they jump
+# Creates a varriable storing the value the player losses when they jump
 var no_jumps = 0
-# creats a varriable storing the value the player has when they have no jumps
+# Creats a varriable storing the value the player has when they have no jumps
 var p1_health: int = 500
-# create a varaible storing the players health as an interger
+# Create a varaible storing the players health as an interger
 var p1_max_health: int = 500
-# creates a varaible storing the players maxium health as an interger
+# Creates a varaible storing the players maxium health as an interger
 var p1_posture: int = 50
-# create a varaible storing the players posture as an interger
+# Create a varaible storing the players posture as an interger
 var p1_max_posture: int = 50
-# creates a varabiel storing the max ammount of parry
+# Creates a varabiel storing the max ammount of parry
 var is_parrying = false
-# create a varaible storing the players parrying, make it where they arent parrying
+# Create a varaible storing the players parrying, make it where they arent parrying
 var is_blocking = false
-# create a varaible storing the players blocking, make it where they arent blocking
+# Create a varaible storing the players blocking, make it where they arent blocking
 var parry_window = 0.2
-# create a varabile storing the window where the player can parry attacks.
+# Create a varabile storing the window where the player can parry attacks.
 var is_attacking = false
-# creates a variable storing the players atack, make it where they arent attacking
+# Creates a variable storing the players atack, make it where they arent attacking
 var is_stunned = false
-# creates a variable storing the players stun, makes it where player isnt stunned.
+# Creates a variable storing the players stun, makes it where player isnt stunned.
 var lifes: int = 3
-# creates a vrabile storing the players lives as in interger.
+# Creates a vrabile storing the players lives as in interger.
 var is_dead = false
-# creates a varaible storing whether the player is dead, makes it where the player isnt dead
+# Creates a varaible storing whether the player is dead, makes it where the player isnt dead
 var dash = 500
-# create a varaible storing the players dash
+# Create a varaible storing the players dash
 var is_dashing = false
-# creates a varaible storing the players dash, makes it where the player isnt dashing
+# Creates a varaible storing the players dash, makes it where the player isnt dashing
 var dash_cooldown = 0.2
-# creates a varraible storing the players dash cooldown
+# Creates a varraible storing the players dash cooldown
 var dash_distance = 0.2
-# creates a varriable storing the players dash distance
+# Creates a varriable storing the players dash distance
 var heavy_attack_delay = 0.25
-# creates a varriable storing the players heavy attack delay
+# Creates a varriable storing the players heavy attack delay
 var posture_gain = 10
-# creates a varaible storing the players posture gain when landing a parry
+# Creates a varaible storing the players posture gain when landing a parry
 var add_stat = 1
-# creates a varriable storing the value that players stat increases by
+# Creates a varriable storing the value that players stat increases by
 var death_time = 3
-# creates a varrialbe storing the time that the player remains dead
+# Creates a varrialbe storing the time that the player remains dead
 var death_hp = 0
-# creates a vararible storing the hp of the player when they are dead
+# Creates a vararible storing the hp of the player when they are dead
 var broken_posture_amount = 0
-# creates a varriable storing the posture of the player when their posture is broken
+# Creates a varriable storing the posture of the player when their posture is broken
 var minus_lives = 1
-# creats a varraible storing the value the player losses when the lose a live
+# Creats a varraible storing the value the player losses when the lose a live
 var no_lives = 0
-# creates a varraible storing the value the player has when they have no lives
+# Creates a varraible storing the value the player has when they have no lives
 
 @export var player_id: String = "p1"
-# exporting an varaible storing the players ID and making it a string (used to refer stats)
+# Exporting an varaible storing the players ID and making it a string (used to refer stats)
 @export var animation: AnimationPlayer
-# exporting an varaible storing all the animations for player 2
+# Exporting an varaible storing all the animations for player 2
 @export var light_attack_damage: int = 10
-# exporting an variable storing the players light attack damage an an interger
+# Exporting an variable storing the players light attack damage an an interger
 @export var heavy_attack_damage: int = 50
-# exporting an varabile storing the players heavy attack damage as an interger
+# Exporting an varabile storing the players heavy attack damage as an interger
 @export var light_down_knockback = 400
-# exporting an varaible storing the players light down knockback
+# Exporting an varaible storing the players light down knockback
 @export var light_side_knockback = 400
-# exporting an varaible storing the players light side knockback
+# Exporting an varaible storing the players light side knockback
 @export var light_up_knockback = 400
-# exporting an varaible storing the players light up knockback
+# Exporting an varaible storing the players light up knockback
 @export var heavy_down_knockback = 800
-# exporting an varaible storing the players heavy down knockback
+# Exporting an varaible storing the players heavy down knockback
 @export var heavy_side_knockback = 800
-# exporting an variable storing the players heavy side knockback
+# Exporting an variable storing the players heavy side knockback
 @export var heavy_up_knockback = 800
-#exporting an varaible storing the players heavy up knockback
+# Eporting an varaible storing the players heavy up knockback
 @export var light_attack_stun = 0.2
-#exporting an varaible storing the light attack stuni
+# Exporting an varaible storing the light attack stun
 @export var heavy_attack_stun = 0.5
-#exporting an variable storing the heavy attack stun
+# Exporting an variable storing the heavy attack stun
 @export var parry_stun = 0.5
-#exporting an varaible storing the parry stun
+# Exporting an varaible storing the parry stun
 @export var posture_break_stun = 1
-#exporting an varaible storing the posture break stun
+# Exporting an varaible storing the posture break stun
 @export var p1_health_ui: ProgressBar
-# exporting the progress bar and making it an varaible for storing health
+# Exporting the progress bar and making it an varaible for storing health
 @export var p1_posture_ui: ProgressBar
-# exporting the progress bar and making it an variable for storing posture
+# Exporting the progress bar and making it an variable for storing posture
 @export var p1_hitbox: Area2D
-# exporting an area 2d and making the the varaible for the players hitbox
+# Exporting an area 2d and making the the varaible for the players hitbox
 @onready var sprite_2d: Sprite2D = $Sprite2D
-# bringst the sprite 2d into the code allowing for it to be referenced (will be used to flip sprite)
+# Brings the sprite 2d into the code allowing for it to be referenced (will be used to flip sprite)
 @export var p1_lifes_ui: Label
-# exporting the label and making it an varaible for storing lifes
+# Exporting the label and making it an varaible for storing lifes
 
 
 func _ready() -> void:
 	p1_health_ui.max_value = p1_health
-# changes the max value of the Progress bar to the p1_health ammount
+# Changes the max value of the Progress bar to the p1_health ammount
 	p1_health_ui.value = p1_health
-# cahnges the value of the Progress bar to the p1_health ammount
+# Changes the value of the Progress bar to the p1_health ammount
 	p1_posture_ui.max_value = p1_posture
-# changes the max value of the Progress bar to the p1_posture ammount
+# Changes the max value of the Progress bar to the p1_posture ammount
 	p1_posture_ui.value = p1_posture
-# changes the value of the Progress bar to the p1_posture ammount
+# Changes the value of the Progress bar to the p1_posture ammount
 	p1_lifes_ui.text = str(lifes)
-# changes the value of the label to the lifes ammount as a string
+# Changes the value of the label to the lifes ammount as a string
 	p1_hitbox.monitoring = true
-# makes p1_hitbox stay on all the time.
+# Makes p1_hitbox stay on all the time.
 
 
 func _physics_process(delta: float) -> void:
@@ -163,42 +163,42 @@ func _physics_process(delta: float) -> void:
 	if direction: 
 		velocity.x = lerp(velocity.x, direction * speed, dash_distance)
 		
-# allows the player to move in the direction they are holding
+# Allows the player to move in the direction they are holding
 		if is_on_floor():
 			animation.play("walking")
 # Plays the walking animation if the player is moving while on the floor
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-# if the player lets go they will stop moving
+# If the player lets go they will stop moving
 		if is_on_floor():
 			animation.play("idle")
 # Plays the idle animation if the player isnt moving while on the floor.
 	
 	if is_on_floor():
 		jumps_left = max_jumps
-# if the player is on the floor the player gets the maximum ammount of jumps
+# If the player is on the floor the player gets the maximum ammount of jumps
 		
 		if Input.is_action_just_pressed("p1_up"):
 			velocity.y = jump
 			animation.play("jumping")
 			jumps_left -= minus_jumps
-# allows the player to jump when they are on the floor and plays the jumping animation
+# Allows the player to jump when they are on the floor and plays the jumping animation
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-# giving the player gravity making them fall if they are in the air
+# Aiving the player gravity making them fall if they are in the air
 		if velocity.y > 0:
 			animation.play("falling")
-# if the player is falling (negative y) then the falling animation will play
+# If the player is falling (negative y) then the falling animation will play
 
 		if Input.is_action_just_pressed("p1_up") and jumps_left > no_jumps:
 			velocity.y = jump
 			animation.play("jumping")
 			jumps_left -= minus_jumps
-# allows the player to jump in the air if they have enough jumps left and plays the jumping animation
+# Allows the player to jump in the air if they have enough jumps left and plays the jumping animation
 
 	move_and_slide()
-# makes the player move
+# Makes the player move
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -206,240 +206,240 @@ func _process(delta: float) -> void:
 
 	if is_stunned:
 		return 
-# returns the function if the players is stunned
+# Returns the function if the players is stunned
 
 	if is_dead:
 		return
-# returns the function if the player is dead
+# Returns the function if the player is dead
 
 
 	if Input.is_action_just_pressed("p1_block"):
 		start_parry()
-# if the player presses the block button then it will start the parry window.
+# If the player presses the block button then it will start the parry window.
 	
 	if Input.is_action_pressed("p1_block") and !is_parrying:
 		is_blocking = true
 		animation.play("Block")
-# if the player holds the block button and misses the parry window then they will block.
+# If the player holds the block button and misses the parry window then they will block.
 	
 	else:
 		is_blocking = false
-# if the player lets go or doesnt press block then they will remain unblocking
+# If the player lets go or doesnt press block then they will remain unblocking
 
 
 	if Input.is_action_just_pressed("p1_light_attack"):
 		light_attack()
-# if the player presses the light attack button then they will light attack
+# If the player presses the light attack button then they will light attack
 	elif Input.is_action_just_pressed("p1_heavy_attack"):
 		heavy_attack()
-# if the player presses the heavy attack button then they will heavy attack
+# If the player presses the heavy attack button then they will heavy attack
  
 
 func start_dash(direction):
 
 	if is_attacking:
 		return
-# returns the function if the player is attacking
+# Returns the function if the player is attacking
 
 	if is_blocking:
 		return
-# returns the function if the player is blocking
+# Returns the function if the player is blocking
 
 	if is_parrying:
 		return
-# returns the function if the player is parrying
+# Returns the function if the player is parrying
 
 	if is_stunned:
 		return
-# returns the function if the player is stunned
+# Returns the function if the player is stunned
 
 	if is_dashing:
 		return
-# returns the function if the player is already dashing
+# Returns the function if the player is already dashing
 
 	is_dashing = true
-# sets dashing to true and plays the dash animation
+# Sets dashing to true and plays the dash animation
 
 	if direction != 0:
 		velocity.x = direction * dash
-# if the player is not stationary then they will dash the direction they are moving
+# If the player is not stationary then they will dash the direction they are moving
 
 	else:
 		if sprite_2d.flip_h:
 			velocity.x = -dash
 		else: 
 			velocity.x = dash
-# if the player is stationary then they will dash the direction they are facing
+# If the player is stationary then they will dash the direction they are facing
 
 	await get_tree().create_timer(dash_cooldown).timeout
 	is_dashing = false
-# after 0.2 seconds dashing will be set to false
+# After 0.2 seconds dashing will be set to false
 
 
 func light_attack():
 
 	if is_attacking:
 		return
-# returns the function if the player is attacking
+# Returns the function if the player is attacking
 
 	if is_blocking:
 		return
-# returns the function if the player is blocking
+# Returns the function if the player is blocking
 
 
 	is_attacking = true 
-# sets attacking to true
+# Sets attacking to true
 
 	var knockback = Vector2.ZERO
-# creates a varible in the light attack function storing knockback
+# Creates a varible in the light attack function storing knockback
 
 	if Input.is_action_pressed("p1_down"):
-# if the player is holding down when they attack then it will down light
+# If the player is holding down when they attack then it will down light
 		animation.play("Light down attack")
-# plays the down light attack animation
+# Plays the down light attack animation
 		knockback = Vector2(0, light_down_knockback)
-# changes the knockback varabile value to the light_down_knockback ammount
+# Changes the knockback varabile value to the light_down_knockback ammount
 
 	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
-# if the play is holding right or left when they attack it will side light
+# If the play is holding right or left when they attack it will side light
 		animation.play("Light side attack")
-# plays the side light attack animation
+# Plays the side light attack animation
 		if sprite_2d.flip_h:
 			knockback = Vector2(-light_side_knockback, 0)
 		else:
 			knockback = Vector2(light_side_knockback, 0)
-# depending on the direction the player is facing will apply knockback in that direction.
+# Depending on the direction the player is facing will apply knockback in that direction.
 
 	else:
 		animation.play("Light up attack")
-# if the player is not holding anything when they attack then it will Up attack	
+# If the player is not holding anything when they attack then it will Up attack	
 		knockback = Vector2(0, -light_up_knockback)
-# changes the knockback varaible value to the light_up_knockback ammount
+# Changes the knockback varaible value to the light_up_knockback ammount
 
 	for area in p1_hitbox.get_overlapping_areas():
-# a for loop going through for all areas inside of p1_hitbox
+# A for loop going through for all areas inside of p1_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun, self)
-# if there is an area that isnt the p1_hitbox then it will take damage, stun and knockback
-# self is used to reference the player
+# If there is an area that isnt the p1_hitbox then it will take damage, stun and knockback
+# Self is used to reference the player
 			GameStats.stats[player_id]["Damage_done"] += light_attack_damage
 # Adds the light attack damage to the players damage done stat
 
 	await animation.animation_finished 
 	is_attacking = false 
-# waits for the animation to end and then makes the player stop attacking
+# Waits for the animation to end and then makes the player stop attacking
 
 
 func heavy_attack():
 	if is_attacking:
 		return
-# returns the function if the player is already attacking
+# Returns the function if the player is already attacking
 	
 	if is_blocking:
 		return
-# returns the function if the player is blocking
+# Returns the function if the player is blocking
 
 	is_attacking = true
-# sets attacking to true
+# Sets attacking to true
 
 	var knockback = Vector2.ZERO
-# creates an variable in the heavy attack function storing knockback
+# Creates an variable in the heavy attack function storing knockback
 
 	if Input.is_action_pressed("p1_down"):
-# if the player is holding down when they attack then it will down heavy
+# If the player is holding down when they attack then it will down heavy
 		animation.play("Heavy down attack")
-# plays the heavy down attack animation
+# Plays the heavy down attack animation
 		knockback = Vector2(0, heavy_down_knockback)
-# changes the knockback varaible value to the heavy_down_knockback amount
+# Changes the knockback varaible value to the heavy_down_knockback amount
 
 	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
-# if the play is holding right or left when they attack it will side heavy
+# If the play is holding right or left when they attack it will side heavy
 		animation.play("Heavy side attack")
-# plays the heavy side attack animation
+# Plays the heavy side attack animation
 		if sprite_2d.flip_h:
 			knockback = Vector2(-heavy_side_knockback, 0)
 		else:
 			knockback = Vector2(heavy_side_knockback, 0)
-# deals knockback depending on the direction the player is facing
+# Deals knockback depending on the direction the player is facing
 
 	else:
 		animation.play("Heavy up attack")
-# if the player is not holding anything when they attack then it will Up heavy and play animation
+# If the player is not holding anything when they attack then it will Up heavy and play animation
 		knockback = Vector2(0, -heavy_up_knockback)
-# changes the knockback variable value to the heavy_up_knockback ammount
+# Changes the knockback variable value to the heavy_up_knockback ammount
 
 	await get_tree().create_timer(heavy_attack_delay).timeout
-#creates a timer of 0.25s before dealing damage and knockback to players
+# creates a timer of 0.25s before dealing damage and knockback to players
 
 	for area in p1_hitbox.get_overlapping_areas():
-# a for loop going through all areas inside of p1_hitbox
+# A for loop going through all areas inside of p1_hitbox
 		if area.get_parent() != self:
 			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun, self)
-# if there is an area that isnt the p1_hitbox then it will take damage, knockback, and stun
-# self is used to reference the player
+# If there is an area that isnt the p1_hitbox then it will take damage, knockback, and stun
+# Self is used to reference the player
 			GameStats.stats[player_id]["Damage_done"] += heavy_attack_damage
 # Adds the heavy attack damage to the players damage done stat
 
 	await animation.animation_finished
 	is_attacking = false 
-# waits for the animation to end and then makes the player stop attacking
+# Waits for the animation to end and then makes the player stop attacking
 
 
 func start_parry():
 	is_parrying = true
-# when the player presses the block button then it will turn on parry
+# When the player presses the block button then it will turn on parry
 	animation.play("Parry")
-# plays the parry animation
+# Plays the parry animation
 	
 	await get_tree().create_timer(parry_window).timeout
 	is_parrying = false
-# once the parry window closes, the player will no longer be able to parry
+# Once the parry window closes, the player will no longer be able to parry
 
 
 func take_knockback(force: Vector2):
 	velocity = force
-# a function creating knockback and making it an Vector2
+# A function creating knockback and making it an Vector2
 
 
 func take_stun(duration):
 	is_stunned = true
-# sets stun to true
+# Sets stun to true
 	animation.play("stun")
-# plays the stun animation
+# Plays the stun animation
 	await get_tree().create_timer(duration).timeout
 	is_stunned = false
-# after the duration of stun is finished the player will become unstunned
+# After the duration of stun is finished the player will become unstunned
 
 
 func take_damage(amount, knockback, stun, attacker): 
-# attacker is used to reference the player to the attacker
+# Attacker is used to reference the player to the attacker
 
 	if is_dead:
 		return
-# returns the function if the player is already dead
+# Returns the function if the player is already dead
 
 	if is_parrying:
 		
 		is_parrying = false
-# if player lands a parry then it will turn off
+# If player lands a parry then it will turn off
 		if p1_posture < p1_max_posture:
 			p1_posture += posture_gain 
 			p1_posture_ui.value = p1_posture
-# if the player has less than the max posture then when the player lands a parry they will gain 15 posture.
+# If the player has less than the max posture then when the player lands a parry they will gain 15 posture.
 		
 		attacker.take_stun(parry_stun)
-# if the attacker attacks the player while they are parrying then they will take stun
+# If the attacker attacks the player while they are parrying then they will take stun
 		GameStats.stats[player_id]["Parries"] += add_stat
 # Adds 1 to the players Parries stat total
 
 		return
-# returns the function
+# Returns the function
 	
 	if is_blocking:
 		
 		p1_posture -= amount
 		p1_posture_ui.value = p1_posture
-# if the player is blocking, damage gets converted into posture damage and makes the player lose posture
+# If the player is blocking, damage gets converted into posture damage and makes the player lose posture
 		GameStats.stats[player_id]["Damage_blocked"] += amount
 # Adds the amount to the players Damage blocked stat total
 
@@ -448,77 +448,77 @@ func take_damage(amount, knockback, stun, attacker):
 			posture_break()
 		
 		return
-# allows the player to block damage again imediatly
+# Allows the player to block damage again imediatly
 
 	is_attacking = false
-# if the player is attacking and gets hit, their attack will stop.
+# If the player is attacking and gets hit, their attack will stop.
 
 	if p1_health > death_hp:
 		p1_health -= amount
 		p1_health_ui.value = p1_health
-# if the player has health greater than 0 and takes damage it will take damage lowering the HP
+# If the player has health greater than 0 and takes damage it will take damage lowering the HP
 		GameStats.stats[player_id]["Damage_taken"] += amount
 # Adds the amount to the players Damage taken stat total
 		take_knockback(knockback)
-# the player takes knockback acording to the attack that they were hit with.
+# The player takes knockback acording to the attack that they were hit with.
 		take_stun(stun)
-# makes the player take stun according to the attack that they were hit with
+# Makes the player take stun according to the attack that they were hit with
 
 	if p1_health <= death_hp and not is_dead: 
 		GameStats.stats[attacker.player_id]["Kills"] += add_stat
 # Adds 1 to the attackers players Kills stat total
 		death()
-# if the players health goes bellow or is 0 they will die
+# If the players health goes bellow or is 0 they will die
 
 
 func posture_break():
 
 	is_blocking = false
-# if the players posture breaks they will stop blocking
+# If the players posture breaks they will stop blocking
 
 	await take_stun(posture_break_stun)
-# if stuns the player for the stun duration.
+# If stuns the player for the stun duration.
 
 	p1_posture = p1_max_posture
 	p1_posture_ui.value = p1_posture
-# once the players block gets broken, their posture bar will rest back to the max
+# Once the players block gets broken, their posture bar will rest back to the max
 
 
 func death():
 
 	if is_dead:
 		return
-# returns the function if the player is already dead
+# Returns the function if the player is already dead
 
 	GameStats.stats[player_id]["Deaths"] += add_stat
 # Adds 1 to the players Deaths stat total
 	is_dead = true
-# makes the player dead
+# Makes the player dead
 	animation.play("Death")
 	await get_tree().create_timer(death_time).timeout
-# plays the death animation and waits 3 seconds after the player dies
+# Plays the death animation and waits 3 seconds after the player dies
 
 	lifes -= minus_lives
 	p1_lifes_ui.text = str(lifes)
-# decreases lives by 1 once the player dies and updates the UI value
+# Decreases lives by 1 once the player dies and updates the UI value
 
 	if lifes > no_lives:
 
 		p1_health = p1_max_health
 		p1_health_ui.value = p1_health
-# resets the players health back to its max value and shows the value on UI if player has enough lifes
+# Resets the players health back to its max value and shows the value on UI if player has enough lifes
 		
 		p1_posture = p1_max_posture
 		p1_posture_ui.value = p1_posture
-# resets the players posture back to its max avlue and shows the value on UI if player has enough lifes
+# Resets the players posture back to its max avlue and shows the value on UI if player has enough lifes
 		
 		is_attacking = false
 		is_blocking = false
 		is_parrying = false
 		is_stunned = false 
 		is_dead = false
-# sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
+# Sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
 
 	else:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/white_victory_screen.tscn")
-# if the player doesnt enough lifes then the player has lost and will go to the white player victory screen.
+# If the player doesnt enough lifes then the player has lost and will go to the white player victory screen.
