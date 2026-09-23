@@ -1,7 +1,7 @@
 extends Control
 
-var stat_reset = 0
-# Varriable storing the value for the stat reset
+const STAT_RESET = 0
+# Constant storing the value for the stat reset
 
 
 @onready var resume_button = $"Resume button"
@@ -70,7 +70,7 @@ func _on_back_to_menu_button_pressed() -> void:
 	get_tree().paused = false
 	for player in GameStats.stats:
 		for stat in GameStats.stats[player]:
-			GameStats.stats[player][stat] = stat_reset
+			GameStats.stats[player][stat] = STAT_RESET
 # A for loop going through each player and stat in the GameStats and reseting them back to 0
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 # Changes the scene to the main menu and unpauses when the back to menu button is pressed

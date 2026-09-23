@@ -369,7 +369,7 @@ func heavy_attack():
 # Changes the knockback variable value to the heavy_up_knockback ammount
 
 	await get_tree().create_timer(HEAVY_ATTACK_DELAY).timeout
-# creates a timer of 0.25s before dealing damage and knockback to players
+# Creates a timer of 0.25s before dealing damage and knockback to players
 
 	for area in p1_hitbox.get_overlapping_areas():
 # A for loop going through all areas inside of p1_hitbox

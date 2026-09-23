@@ -67,7 +67,8 @@ func _input(event: InputEvent) -> void:
 		selecting_keybind = ""
 		selected_keybind = null
 		get_viewport().set_input_as_handled()
-# Remove the old keybind and replaces it with the new one updating the keybinds and stops listening for player input.
+# Removes the old keybind and replaces it with the new one, updating the keybind
+# Stops input listening.
 
 
 func _back() -> void:
