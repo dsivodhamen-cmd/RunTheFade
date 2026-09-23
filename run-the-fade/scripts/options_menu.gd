@@ -3,12 +3,12 @@ extends Control
 @onready var help_doc = $"Help Doc"
 # Variable bringing the help_doc into the script to use as reference
 
-var p1_keybinds = ["p1_up", "p1_left", "p1_down", "p1_right", "p1_light_attack",
+const P1_KEYBINDS = ["p1_up", "p1_left", "p1_down", "p1_right", "p1_light_attack",
 "p1_heavy_attack", "p1_block", "p1_dash"]
-# Variable storing all of the player 1 key binds
-var p2_keybinds = ["p2_up", "p2_left", "p2_down", "p2_right", "p2_light_attack",
+# Constant storing all of the player 1 key binds
+const P2_KEYBINDS = ["p2_up", "p2_left", "p2_down", "p2_right", "p2_light_attack",
 "p2_heavy_attack", "p2_block", "p2_dash"]
-# Varaible storing all of the player 2 key binds
+# Constant storing all of the player 2 key binds
 
 var selecting_keybind: String = ""
 # Varaible storing what keybind is currently being rebinded, empyty if none
@@ -26,8 +26,8 @@ var selected_keybind: Button = null
 
 
 func _ready() -> void:
-	build_keybind_list(p1_keybinds, p1_binds)
-	build_keybind_list(p2_keybinds, p2_binds)
+	build_keybind_list(P1_KEYBINDS, p1_binds)
+	build_keybind_list(P2_KEYBINDS, p2_binds)
 # Builds both players keybind list
 
 

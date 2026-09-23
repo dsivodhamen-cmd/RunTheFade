@@ -9,13 +9,12 @@ var stat_reset = 0
 @onready var options_menu = $OptionsMenu
 # Instacning the buttons and options menu
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 # Keeps the menu working even while game is paused
-
-
 
 
 func _input(event):

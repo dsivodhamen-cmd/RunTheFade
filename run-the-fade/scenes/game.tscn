@@ -192,11 +192,8 @@ p1_health_ui = NodePath("../CanvasLayer2/Player1HP")
 p1_posture_ui = NodePath("../CanvasLayer2/Player1Posture")
 p1_lifes_ui = NodePath("../CanvasLayer2/Player1Lifes")
 
-[node name="CharacterBody2D2" parent="." unique_id=1464841377 node_paths=PackedStringArray("p2_health_ui", "p2_posture_ui", "p2_lifes_ui") instance=ExtResource("2_yqjtg")]
+[node name="CharacterBody2D2" parent="." unique_id=1464841377 instance=ExtResource("2_yqjtg")]
 position = Vector2(856, 525)
-p2_health_ui = NodePath("../CanvasLayer/Player2HP")
-p2_posture_ui = NodePath("../CanvasLayer/Player2Posture")
-p2_lifes_ui = NodePath("../CanvasLayer/Player2Lifes")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=263365558]
 position = Vector2(0, 412)

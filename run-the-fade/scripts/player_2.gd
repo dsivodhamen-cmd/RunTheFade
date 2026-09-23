@@ -1,32 +1,15 @@
 extends CharacterBody2D
 
-
-var speed = 300
-# Create a varaible storing the players speed
-var jump = -400
-# Create a varaible storing the players jump
-var max_jumps = 5
-# Create a variable storing the max jumps the player can jump
 var jumps_left = 5
 # Create a varaible storing the ammount of jumps the player has
-var minus_jumps = 1
-# Creates a varriable storing the value the player losses when they jump
-var no_jumps = 0
-# Creats a varriable storing the value the player has when they have no jumps
 var p2_health: int = 500
 # Create a varaible storing the players health as an interger
-var p2_max_health: int = 500
-# Creates a varaible storing the players maxium health as an interger
 var p2_posture: int = 50
 # Create a varaible storing the players posture as an interger
-var p2_max_posture: int = 50
-# Creates a varabiel storing the max ammount of parry
 var is_parrying = false
 # Create a varaible storing the players parrying, make it where they arent parrying
 var is_blocking = false
 # Create a varaible storing the players blocking, make it where they arent blocking
-var parry_window = 0.2
-# Create a varabile storing the window where the player can parry attacks.
 var is_attacking = false
 # Creates a variable storing the players atack, make it where they arent attacking
 var is_stunned = false
@@ -35,30 +18,47 @@ var lifes: int = 3
 # Creates a vrabile storing the players lives as in interger.
 var is_dead = false
 # Creates a varaible storing whether the player is dead, makes it where the player isnt dead
-var dash = 500
-# Create a varaible storing the players dash
 var is_dashing = false
 # Creates a varaible storing the players dash, makes it where the player isnt dashing
-var dash_cooldown = 0.2
-# Creates a varraible storing the players dash cooldown
-var dash_distance = 0.2
-# Creates a varriable storing the players dash distance
-var heavy_attack_delay = 0.25
-# Creates a varriable storing the players heavy attack delay
-var posture_gain = 10
-# Creates a varaible storing the players posture gain when landing a parry
-var add_stat = 1
-# Creates a varriable storing the value that players stat increases by
-var death_time = 3
-# Creates a varrialbe storing the time that the player remains dead
-var death_hp = 0
-# Creates a vararible storing the hp of the player when they are dead
-var broken_posture_amount = 0
-# Creates a varriable storing the posture of the player when their posture is broken
-var minus_lives = 1
-# Creats a varraible storing the value the player losses when the lose a live
-var no_lives = 0
-# Creates a varraible storing the value the player has when they have no lives
+
+const SPEED = 300
+# Create a constant storing the players speed
+const JUMP = -400
+# Create a constant storing the players jump
+const MAX_JUMPS = 5
+# Create a constant storing the max jumps the player can jump
+const MINUS_JUMPS = 1
+# Creates a constant storing the value the player losses when they jump
+const NO_JUMPS = 0
+# Creats a constant storing the value the player has when they have no jumps
+const P2_MAX_HEALTH: int = 500
+# Creates a constant storing the players maxium health as an interger
+const P2_MAX_POSTURE: int = 50
+# Creates a constant storing the max ammount of parry
+const PARRY_WINDOW = 0.2
+# Create a constant storing the window where the player can parry attacks.
+const DASH = 500
+# Create a constant storing the players dash
+const DASH_COOLDOWN = 0.2
+# Creates a constant storing the players dash cooldown
+const DASH_DISTANCE = 0.2
+# Creates a constant storing the players dash distance
+const HEAVY_ATTACK_DELAY = 0.25
+# Creates a constant storing the players heavy attack delay
+const POSTURE_GAIN = 10
+# Creates a constant storing the players posture gain when landing a parry
+const ADD_STAT = 1
+# Creates a constant storing the value that players stat increases by
+const DEATH_TIME = 3
+# Creates a constant storing the time that the player remains dead
+const DEATH_HP = 0
+# Creates a constant storing the hp of the player when they are dead
+const BROKEN_POSTURE_AMOUNT = 0
+# Creates a constant storing the posture of the player when their posture is broken
+const MINUS_LIVES = 1
+# Creats a constant storing the value the player losses when the lose a live
+const NO_LIVES = 0
+# Creates a constant storing the value the player has when they have no lives
 
 @export var player_id: String = "p2"
 # Exporting an varaible storing the players ID and making it a string (used to refer stats)
@@ -161,27 +161,27 @@ func _physics_process(delta: float) -> void:
 # if the player presses the dash button then they will dash
 
 	if direction: 
-		velocity.x = lerp(velocity.x, direction * speed, dash_distance)
+		velocity.x = lerp(velocity.x, direction * SPEED, DASH_DISTANCE)
 		
 # Allows the player to move in the direction they are holding
 		if is_on_floor():
 			animation.play("walking")
 # Plays the walking animation if the player is moving while on the floor
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 # If the player lets go they will stop moving
 		if is_on_floor():
 			animation.play("idle")
 # Plays the idle animation if the player isnt moving while on the floor.
 	
 	if is_on_floor():
-		jumps_left = max_jumps
+		jumps_left = MAX_JUMPS
 # If the player is on the floor the player gets the maximum ammount of jumps
 		
 		if Input.is_action_just_pressed("p2_up"):
-			velocity.y = jump
+			velocity.y = JUMP
 			animation.play("jumping")
-			jumps_left -= minus_jumps
+			jumps_left -= MINUS_JUMPS
 # Allows the player to jump when they are on the floor and plays the jumping animation
 
 	if not is_on_floor():
@@ -191,10 +191,10 @@ func _physics_process(delta: float) -> void:
 			animation.play("falling")
 # If the player is falling (negative y) then the falling animation will play
 
-		if Input.is_action_just_pressed("p2_up") and jumps_left > no_jumps:
-			velocity.y = jump
+		if Input.is_action_just_pressed("p2_up") and jumps_left > NO_JUMPS:
+			velocity.y = JUMP
 			animation.play("jumping")
-			jumps_left -= minus_jumps
+			jumps_left -= MINUS_JUMPS
 # Allows the player to jump in the air if they have enough jumps left and plays the jumping animation
 
 	move_and_slide()
@@ -261,17 +261,17 @@ func start_dash(direction):
 # Sets dashing to true and plays the dash animation
 
 	if direction != 0:
-		velocity.x = direction * dash
+		velocity.x = direction * DASH
 # If the player is not stationary then they will dash the direction they are moving
 
 	else:
 		if sprite_2d.flip_h:
-			velocity.x = -dash
+			velocity.x = -DASH
 		else: 
-			velocity.x = dash
+			velocity.x = DASH
 # If the player is stationary then they will dash the direction they are facing
 
-	await get_tree().create_timer(dash_cooldown).timeout
+	await get_tree().create_timer(DASH_COOLDOWN).timeout
 	is_dashing = false
 # After 0.2 seconds dashing will be set to false
 
@@ -368,7 +368,7 @@ func heavy_attack():
 		knockback = Vector2(0, -heavy_up_knockback)
 # Changes the knockback variable value to the heavy_up_knockback ammount
 
-	await get_tree().create_timer(heavy_attack_delay).timeout
+	await get_tree().create_timer(HEAVY_ATTACK_DELAY).timeout
 # creates a timer of 0.25s before dealing damage and knockback to players
 
 	for area in p2_hitbox.get_overlapping_areas():
@@ -391,7 +391,7 @@ func start_parry():
 	animation.play("Parry")
 # Plays the parry animation
 	
-	await get_tree().create_timer(parry_window).timeout
+	await get_tree().create_timer(PARRY_WINDOW).timeout
 	is_parrying = false
 # Once the parry window closes, the player will no longer be able to parry
 
@@ -422,14 +422,14 @@ func take_damage(amount, knockback, stun, attacker):
 		
 		is_parrying = false
 # If player lands a parry then it will turn off
-		if p2_posture < p2_max_posture:
-			p2_posture += posture_gain 
+		if p2_posture < P2_MAX_POSTURE:
+			p2_posture += POSTURE_GAIN 
 			p2_posture_ui.value = p2_posture
 # If the player has less than the max posture then when the player lands a parry they will gain 15 posture.
 		
 		attacker.take_stun(parry_stun)
 # If the attacker attacks the player while they are parrying then they will take stun
-		GameStats.stats[player_id]["Parries"] += add_stat
+		GameStats.stats[player_id]["Parries"] += ADD_STAT
 # Adds 1 to the players Parries stat total
 
 		return
@@ -444,7 +444,7 @@ func take_damage(amount, knockback, stun, attacker):
 # Adds the amount to the players Damage blocked stat total
 
 
-		if p2_posture <= broken_posture_amount: 
+		if p2_posture <= BROKEN_POSTURE_AMOUNT: 
 			posture_break()
 		
 		return
@@ -453,7 +453,7 @@ func take_damage(amount, knockback, stun, attacker):
 	is_attacking = false
 # If the player is attacking and gets hit, their attack will stop.
 
-	if p2_health > death_hp:
+	if p2_health > DEATH_HP:
 		p2_health -= amount
 		p2_health_ui.value = p2_health
 # If the player has health greater than 0 and takes damage it will take damage lowering the HP
@@ -464,8 +464,8 @@ func take_damage(amount, knockback, stun, attacker):
 		take_stun(stun)
 # Makes the player take stun according to the attack that they were hit with
 
-	if p2_health <= death_hp and not is_dead: 
-		GameStats.stats[attacker.player_id]["Kills"] += add_stat
+	if p2_health <= DEATH_HP and not is_dead: 
+		GameStats.stats[attacker.player_id]["Kills"] += ADD_STAT
 # Adds 1 to the attackers players Kills stat total
 		death()
 # If the players health goes bellow or is 0 they will die
@@ -479,7 +479,7 @@ func posture_break():
 	await take_stun(posture_break_stun)
 # If stuns the player for the stun duration.
 
-	p2_posture = p2_max_posture
+	p2_posture = P2_MAX_POSTURE
 	p2_posture_ui.value = p2_posture
 # Once the players block gets broken, their posture bar will rest back to the max
 
@@ -490,25 +490,25 @@ func death():
 		return
 # Returns the function if the player is already dead
 
-	GameStats.stats[player_id]["Deaths"] += add_stat
+	GameStats.stats[player_id]["Deaths"] += ADD_STAT
 # Adds 1 to the players Deaths stat total
 	is_dead = true
 # Makes the player dead
 	animation.play("Death")
-	await get_tree().create_timer(death_time).timeout
+	await get_tree().create_timer(DEATH_TIME).timeout
 # Plays the death animation and waits 3 seconds after the player dies
 
-	lifes -= minus_lives
+	lifes -= MINUS_LIVES
 	p2_lifes_ui.text = str(lifes)
 # Decreases lives by 1 once the player dies and updates the UI value
 
-	if lifes > no_lives:
+	if lifes > NO_LIVES:
 
-		p2_health = p2_max_health
+		p2_health = P2_MAX_HEALTH
 		p2_health_ui.value = p2_health
 # Resets the players health back to its max value and shows the value on UI if player has enough lifes
 		
-		p2_posture = p2_max_posture
+		p2_posture = P2_MAX_POSTURE
 		p2_posture_ui.value = p2_posture
 # Resets the players posture back to its max avlue and shows the value on UI if player has enough lifes
 		
