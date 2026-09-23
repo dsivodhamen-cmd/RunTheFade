@@ -3,6 +3,7 @@ extends Control
 var stat_reset = 0
 # Varriable storing the value for the stat reset
 
+
 @onready var resume_button = $"Resume button"
 @onready var options_button = $"Options button"
 @onready var back_to_menu_button = $"Back to Menu button"

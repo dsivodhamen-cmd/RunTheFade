@@ -217,7 +217,7 @@ func _process(delta: float) -> void:
 		start_parry()
 # If the player presses the block button then it will start the parry window.
 	
-	if Input.is_action_pressed("p2_block") and !is_parrying:
+	if Input.is_action_pressed("p2_block") and not is_parrying:
 		is_blocking = true
 		animation.play("Block")
 # If the player holds the block button and misses the parry window then they will block.

@@ -13,12 +13,16 @@ func _ready() -> void:
 	var p2 = GameStats.stats["p2"]
 # A varabile storing the GameStats of the two players
 
-	p1_stats_label.text = "Kills: %d\nDamage done: %d\nDamage taken: %d\nDamage blocked: %d\nParries: %d\nDeaths: %d" % [p1.Kills, 
-	p1.Damage_done, p1.Damage_taken, p1.Damage_blocked, p1.Parries, p1.Deaths]
-	
-	p2_stats_label.text = "Kills: %d\nDamage done: %d\nDamage taken: %d\nDamage blocked: %d\nParries: %d\nDeaths: %d" % [p2.Kills, 
-	p2.Damage_done, p2.Damage_taken, p2.Damage_blocked, p2.Parries, p2.Deaths]
+	p1_stats_label.text = ( 
+		"Kills: %d\nDamage done: %d\nDamage taken: %d\nDamage blocked: %d\nParries: %d\nDeaths: %d"
+		% [p1.Kills, p1.Damage_done, p1.Damage_taken, p1.Damage_blocked, p1.Parries, p1.Deaths]
+)
+	p2_stats_label.text = ( 
+		"Kills: %d\nDamage done: %d\nDamage taken: %d\nDamage blocked: %d\nParries: %d\nDeaths: %d" 
+		% [p2.Kills, p2.Damage_done, p2.Damage_taken, p2.Damage_blocked, p2.Parries, p2.Deaths]
+)
 # Puts the players stats into text in the labels
+
 
 func _continue() -> void:
 	for player in GameStats.stats:

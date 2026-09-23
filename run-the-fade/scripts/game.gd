@@ -11,6 +11,7 @@ const MAPS = [
 ]
 # Creates a constant that store all maps and preloads them in a list
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 
@@ -24,6 +25,7 @@ func _ready() -> void:
 
 	$Map.add_child(map_instance)
 # Puts the map into the "Map" node so that it can be seen in games
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
