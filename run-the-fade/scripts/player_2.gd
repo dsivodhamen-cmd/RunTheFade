@@ -533,7 +533,7 @@ func death():
 
 	if lifes > NO_LIVES:
 
-		p2_health = p2_MAX_HEALTH
+		p2_health = P2_MAX_HEALTH
 		p2_health_ui.value = p2_health
 # Resets the players health back to its max value and shows the value on UI if player has enough lifes
 		
