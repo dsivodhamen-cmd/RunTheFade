@@ -194,6 +194,18 @@ p1_lifes_ui = NodePath("../CanvasLayer2/Player1Lifes")
 
 [node name="CharacterBody2D2" parent="." unique_id=1464841377 instance=ExtResource("2_yqjtg")]
 position = Vector2(856, 525)
+player_id = null
+heavy_attack_damage = null
+light_down_knockback = null
+light_side_knockback = null
+light_up_knockback = null
+heavy_down_knockback = null
+heavy_side_knockback = null
+heavy_up_knockback = null
+light_attack_stun = null
+heavy_attack_stun = null
+parry_stun = null
+posture_break_stun = null
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=263365558]
 position = Vector2(0, 412)

@@ -59,6 +59,36 @@ const MINUS_LIVES = 1
 # Creats a constant storing the value the player losses when the lose a live
 const NO_LIVES = 0
 # Creates a constant storing the value the player has when they have no lives
+const ANIM_WALKING = "walking"
+# Creates a constant storing the walking animation
+const ANIM_IDLE = "idle"
+# Creates a constant storing the idle animation
+const ANIM_JUMPING = "jumping"
+# Creates a constant storing the jumping animation
+const ANIM_FALLING = "falling"
+# Creates a constant storing the falling animation
+const ANIM_DASH = "Dash"
+# Creates a constant storing the dash animation
+const ANIM_BLOCK = "Block"
+# Creates a constant storing the block animation
+const ANIM_LIGHT_DOWN = "Light down attack"
+# Creates a constant storing the light down attack animation
+const ANIM_LIGHT_SIDE = "Light side attack"
+# Creates a constant storing the light side attack animation
+const ANIM_LIGHT_UP = "Light up attack"
+# Creates a constant storing the light up attack animation
+const ANIM_HEAVY_DOWN = "Heavy down attack"
+# Creates a constant storing the heavy down attack animation
+const ANIM_HEAVY_SIDE = "Heavy side attack"
+# Creates a constant storing the heavy side attack animation
+const ANIM_HEAVY_UP = "Heavy up attack"
+# Creates a constant storing the heavy up attack animation
+const ANIM_PARRY = "Parry"
+# Creates a constant storing the parry animation
+const ANIM_STUN = "stun"
+# Creates a constant storing the stun animation
+const ANIM_DEATH = "Death"
+# Creates a constant storing the death animation
 
 @export var player_id: String = "p1"
 # Exporting an varaible storing the players ID and making it a string (used to refer stats)
@@ -144,7 +174,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_dashing:
 		move_and_slide()
-		animation.play("Dash")
+		animation.play(ANIM_DASH)
 		return
 # If the player is dashing then this will prevent the player from moving and plays the dashing animation
 
@@ -165,13 +195,13 @@ func _physics_process(delta: float) -> void:
 		
 # Allows the player to move in the direction they are holding
 		if is_on_floor():
-			animation.play("walking")
+			animation.play(ANIM_WALKING)
 # Plays the walking animation if the player is moving while on the floor
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 # If the player lets go they will stop moving
 		if is_on_floor():
-			animation.play("idle")
+			animation.play(ANIM_IDLE)
 # Plays the idle animation if the player isnt moving while on the floor.
 	
 	if is_on_floor():
@@ -180,7 +210,7 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("p1_up"):
 			velocity.y = JUMP
-			animation.play("jumping")
+			animation.play(ANIM_JUMPING)
 			jumps_left -= MINUS_JUMPS
 # Allows the player to jump when they are on the floor and plays the jumping animation
 
@@ -188,12 +218,12 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 # Aiving the player gravity making them fall if they are in the air
 		if velocity.y > 0:
-			animation.play("falling")
+			animation.play(ANIM_FALLING)
 # If the player is falling (negative y) then the falling animation will play
 
 		if Input.is_action_just_pressed("p1_up") and jumps_left > NO_JUMPS:
 			velocity.y = JUMP
-			animation.play("jumping")
+			animation.play(ANIM_JUMPING)
 			jumps_left -= MINUS_JUMPS
 # Allows the player to jump in the air if they have enough jumps left and plays the jumping animation
 
@@ -219,7 +249,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("p1_block") and not is_parrying:
 		is_blocking = true
-		animation.play("Block")
+		animation.play(ANIM_BLOCK)
 # If the player holds the block button and misses the parry window then they will block.
 	
 	else:
@@ -295,14 +325,14 @@ func light_attack():
 
 	if Input.is_action_pressed("p1_down"):
 # If the player is holding down when they attack then it will down light
-		animation.play("Light down attack")
+		animation.play(ANIM_LIGHT_DOWN)
 # Plays the down light attack animation
 		knockback = Vector2(0, light_down_knockback)
 # Changes the knockback varabile value to the light_down_knockback ammount
 
 	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
 # If the play is holding right or left when they attack it will side light
-		animation.play("Light side attack")
+		animation.play(ANIM_LIGHT_SIDE)
 # Plays the side light attack animation
 		if sprite_2d.flip_h:
 			knockback = Vector2(-light_side_knockback, 0)
@@ -311,7 +341,7 @@ func light_attack():
 # Depending on the direction the player is facing will apply knockback in that direction.
 
 	else:
-		animation.play("Light up attack")
+		animation.play(ANIM_LIGHT_UP)
 # If the player is not holding anything when they attack then it will Up attack	
 		knockback = Vector2(0, -light_up_knockback)
 # Changes the knockback varaible value to the light_up_knockback ammount
@@ -322,7 +352,7 @@ func light_attack():
 			area.get_parent().take_damage(light_attack_damage, knockback, light_attack_stun, self)
 # If there is an area that isnt the p1_hitbox then it will take damage, stun and knockback
 # Self is used to reference the player
-			GameStats.stats[player_id]["Damage_done"] += light_attack_damage
+			GameStats.stats[player_id][GameStats.DAMAGE_DONE] += light_attack_damage
 # Adds the light attack damage to the players damage done stat
 
 	await animation.animation_finished 
@@ -347,14 +377,14 @@ func heavy_attack():
 
 	if Input.is_action_pressed("p1_down"):
 # If the player is holding down when they attack then it will down heavy
-		animation.play("Heavy down attack")
+		animation.play(ANIM_HEAVY_DOWN)
 # Plays the heavy down attack animation
 		knockback = Vector2(0, heavy_down_knockback)
 # Changes the knockback varaible value to the heavy_down_knockback amount
 
 	elif Input.is_action_pressed("p1_left") or Input.is_action_pressed("p1_right"):
 # If the play is holding right or left when they attack it will side heavy
-		animation.play("Heavy side attack")
+		animation.play(ANIM_HEAVY_SIDE)
 # Plays the heavy side attack animation
 		if sprite_2d.flip_h:
 			knockback = Vector2(-heavy_side_knockback, 0)
@@ -363,7 +393,7 @@ func heavy_attack():
 # Deals knockback depending on the direction the player is facing
 
 	else:
-		animation.play("Heavy up attack")
+		animation.play(ANIM_HEAVY_UP)
 # If the player is not holding anything when they attack then it will Up heavy and play animation
 		knockback = Vector2(0, -heavy_up_knockback)
 # Changes the knockback variable value to the heavy_up_knockback ammount
@@ -377,7 +407,7 @@ func heavy_attack():
 			area.get_parent().take_damage(heavy_attack_damage, knockback, heavy_attack_stun, self)
 # If there is an area that isnt the p1_hitbox then it will take damage, knockback, and stun
 # Self is used to reference the player
-			GameStats.stats[player_id]["Damage_done"] += heavy_attack_damage
+			GameStats.stats[player_id][GameStats.DAMAGE_DONE] += heavy_attack_damage
 # Adds the heavy attack damage to the players damage done stat
 
 	await animation.animation_finished
@@ -388,7 +418,7 @@ func heavy_attack():
 func start_parry():
 	is_parrying = true
 # When the player presses the block button then it will turn on parry
-	animation.play("Parry")
+	animation.play(ANIM_PARRY)
 # Plays the parry animation
 	
 	await get_tree().create_timer(PARRY_WINDOW).timeout
@@ -404,7 +434,7 @@ func take_knockback(force: Vector2):
 func take_stun(duration):
 	is_stunned = true
 # Sets stun to true
-	animation.play("stun")
+	animation.play(ANIM_STUN)
 # Plays the stun animation
 	await get_tree().create_timer(duration).timeout
 	is_stunned = false
@@ -429,7 +459,7 @@ func take_damage(amount, knockback, stun, attacker):
 		
 		attacker.take_stun(parry_stun)
 # If the attacker attacks the player while they are parrying then they will take stun
-		GameStats.stats[player_id]["Parries"] += ADD_STAT
+		GameStats.stats[player_id][GameStats.PARRIES] += ADD_STAT
 # Adds 1 to the players Parries stat total
 
 		return
@@ -440,9 +470,8 @@ func take_damage(amount, knockback, stun, attacker):
 		p1_posture -= amount
 		p1_posture_ui.value = p1_posture
 # If the player is blocking, damage gets converted into posture damage and makes the player lose posture
-		GameStats.stats[player_id]["Damage_blocked"] += amount
+		GameStats.stats[player_id][GameStats.DAMAGE_BLOCKED] += amount
 # Adds the amount to the players Damage blocked stat total
-
 
 		if p1_posture <= BROKEN_POSTURE_AMOUNT: 
 			posture_break()
@@ -457,7 +486,7 @@ func take_damage(amount, knockback, stun, attacker):
 		p1_health -= amount
 		p1_health_ui.value = p1_health
 # If the player has health greater than 0 and takes damage it will take damage lowering the HP
-		GameStats.stats[player_id]["Damage_taken"] += amount
+		GameStats.stats[player_id][GameStats.DAMAGE_TAKEN] += amount
 # Adds the amount to the players Damage taken stat total
 		take_knockback(knockback)
 # The player takes knockback acording to the attack that they were hit with.
@@ -465,7 +494,7 @@ func take_damage(amount, knockback, stun, attacker):
 # Makes the player take stun according to the attack that they were hit with
 
 	if p1_health <= DEATH_HP and not is_dead: 
-		GameStats.stats[attacker.player_id]["Kills"] += ADD_STAT
+		GameStats.stats[attacker.player_id][GameStats.KILLS] += ADD_STAT
 # Adds 1 to the attackers players Kills stat total
 		death()
 # If the players health goes bellow or is 0 they will die
@@ -490,11 +519,11 @@ func death():
 		return
 # Returns the function if the player is already dead
 
-	GameStats.stats[player_id]["Deaths"] += ADD_STAT
+	GameStats.stats[player_id][GameStats.DEATHS] += ADD_STAT
 # Adds 1 to the players Deaths stat total
 	is_dead = true
 # Makes the player dead
-	animation.play("Death")
+	animation.play(ANIM_DEATH)
 	await get_tree().create_timer(DEATH_TIME).timeout
 # Plays the death animation and waits 3 seconds after the player dies
 
