@@ -93,7 +93,7 @@ const ANIM_DEATH = "Death"
 @export var player_id: String = "p1"
 # Exporting an varaible storing the players ID and making it a string (used to refer stats)
 @export var animation: AnimationPlayer
-# Exporting an varaible storing all the animations for player 2
+# Exporting an varaible storing all the animations for player 1
 @export var light_attack_damage: int = 10
 # Exporting an variable storing the players light attack damage an an interger
 @export var heavy_attack_damage: int = 50
@@ -242,6 +242,9 @@ func _process(delta: float) -> void:
 		return
 # Returns the function if the player is dead
 
+	if is_attacking:
+		return
+# Returns the function if the player is attacking
 
 	if Input.is_action_just_pressed("p1_block"):
 		start_parry()

@@ -242,6 +242,9 @@ func _process(delta: float) -> void:
 		return
 # Returns the function if the player is dead
 
+	if is_attacking:
+		return
+# Returns the function if the player is attacking
 
 	if Input.is_action_just_pressed("p2_block"):
 		start_parry()
@@ -549,5 +552,5 @@ func death():
 # Sets all boolean varaibles to false so player isnt attacking, blocking, parrying, stunned and dead.
 
 	else:
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/white_victory_screen.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/black_victory_screen.tscn")
 # If the player doesnt enough lifes then the player has lost and will go to the white player victory screen.

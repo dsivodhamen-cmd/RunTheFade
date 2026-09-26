@@ -49,6 +49,11 @@ func get_bind_text(keybind: String) -> String:
 
 
 func _on_bind_button_pressed(keybind: String, button: Button) -> void:
+	
+	if selecting_keybind != "":
+		selected_keybind.text = get_bind_text(selecting_keybind)
+# If another keybind was already being rebinded, restores it to orginal keybind.
+	
 	selecting_keybind = keybind
 	selected_keybind = button
 	button.text = "Press a key..."
